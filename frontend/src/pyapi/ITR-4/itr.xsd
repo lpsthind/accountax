@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+xmlns="http://incometaxindiaefiling.gov.in/" 
+xmlns:ITRForm="http://incometaxindiaefiling.gov.in/master" 
+xmlns:ITR4FORM="http://incometaxindiaefiling.gov.in/ITR4" 
+targetNamespace="http://incometaxindiaefiling.gov.in/ITR4" 
+elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://incometaxindiaefiling.gov.in/master" schemaLocation="./master.xsd"/>
+	<xs:element name="ITR4" id="ITR-4">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="ITRForm:CreationInfo"/>
+				<xs:element ref="ITRForm:Form_ITR4"/>
+				<xs:element ref="ITRForm:PersonalInfo"/>
+				<xs:element ref="ITRForm:FilingStatus" />
+				<xs:element ref="ITRForm:IncomeDeductions"/>
+				<xs:element ref="ITRForm:TaxComputation"/>
+				<xs:element ref="ITRForm:TaxPaid"/>
+				<xs:element ref="ITRForm:Refund" />
+                <xs:element ref="ITRForm:Schedule80G" minOccurs="0"/>
+				<xs:element ref="ITRForm:TaxExmpIntIncDtls" minOccurs="0" />
+				<xs:element ref="ITRForm:Verification" />
+				<xs:element ref="ITRForm:TaxReturnPreparer" minOccurs="0"/>
+				<xs:element ref="ITRForm:ScheduleBP" minOccurs="0"/>
+				<xs:element ref="ITRForm:ScheduleIT" minOccurs="0"/>
+				<xs:element ref="ITRForm:ScheduleTCS" minOccurs="0"/>
+				<xs:element ref="ITRForm:TDSonSalaries" minOccurs="0"/>
+				<xs:element ref="ITRForm:TDSonOthThanSals" minOccurs="0" />
+				<xs:element ref="ITRForm:ScheduleTDS3Dtls" minOccurs="0" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
+

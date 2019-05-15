@@ -1,0 +1,92 @@
+button.win-head{
+  width:20px;
+  height:20px;
+  outline:none;
+  border:2px solid transparent;
+  border-radius: 50%;
+  margin-right: 4px;
+  z-index: 20000;
+  -webkit-app-region:none;
+}
+
+button.win-head#min-btn{
+  background-color: rgba(255, 136, 0, 0.938);
+}
+button.win-head#max-btn{
+  background-color: green;
+}
+button.win-head#close-btn{
+  background-color: rgba(201, 0, 0, 0.966);
+}
+
+button.win-head#min-btn:hover{
+  background-color: yellow;
+}
+button.win-head#max-btn:hover{
+  background-color: rgb(157, 255, 0);
+}
+button.win-head#close-btn:hover{
+  background-color: red;
+}
+
+
+button.add-drawer-btn{
+  outline: none;
+  height:25px;
+  color:#fff;
+  font-size: 10px;
+  background-color: #f50057;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.12);
+  box-sizing: border-box;
+  text-align: center;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  user-select: none;
+  touch-action: manipulation;
+  padding: 0 15px;
+  overflow: visible;
+  margin: 0;
+  display: inline-flex;
+}
+button.add-drawer-btn:hover{
+  text-decoration: none;
+  outline: none;
+  background-color: #fc347a;
+}
+button.add-drawer-btn:active{
+  background-color: #f50057;
+  border-color: #f50057;
+}
+
+
+button.add-search-btn{
+  outline: none;
+  height:25px;
+  color:#fff;
+  font-size: 10px;
+  background-color: #f50057;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.12);
+  box-sizing: border-box;
+  text-align: center;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  user-select: none;
+  touch-action: manipulation;
+  padding: 0 15px;
+  overflow: visible;
+  margin: 0;
+  display: inline-flex;
+}
+button.add-search-btn:hover{
+  text-decoration: none;
+  outline: none;
+  background-color: #fc347a;
+}
+button.add-search-btn:active{
+  background-color: #f50057;
+  border-color: #f50057;
+}

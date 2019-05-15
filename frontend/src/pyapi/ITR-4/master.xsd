@@ -1,0 +1,4698 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns="http://incometaxindiaefiling.gov.in/master"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://incometaxindiaefiling.gov.in/master"
+	elementFormDefault="qualified" attributeFormDefault="unqualified"
+	xml:lang="EN-US">
+
+	<xs:simpleType name="nonEmptyString">
+		<xs:restriction base="xs:string">
+			<!-- <xs:pattern
+				value="|(\s*([\w\d_=!@#$%\^*\(\){}\[\]\|\\:;',\.\?/~`\-\+&lt;&gt;&amp;&quot;][\s\w\d_=!@#$%\^*\(\){}\[\]\|\\:;',\.\?/~`\-\+&lt;&gt;&amp;&quot;]*)\s*)"></xs:pattern> -->
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:element name="CreationInfo">
+		<xs:annotation>
+			<xs:documentation>This element will be used by third party vendors
+				and intermediaries to give details of their software or xml
+				creation.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="SWVersionNo" default="1.0">
+					<xs:simpleType>
+						<xs:restriction base="nonEmptyString">
+							<xs:minLength value="1" />
+							<xs:maxLength value="10" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="SWCreatedBy">
+					<xs:simpleType>
+						<xs:restriction base="nonEmptyString">
+							<xs:pattern value="[S][W][0-9]{8}" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="XMLCreatedBy">
+					<xs:simpleType>
+						<xs:restriction base="nonEmptyString">
+							<xs:pattern value="[S][W][0-9]{8}" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="XMLCreationDate">
+					<xs:simpleType>
+						<xs:restriction base="xs:date">
+							<xs:minInclusive value="2019-04-01" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="IntermediaryCity" default="Delhi">
+					<xs:simpleType>
+						<xs:restriction base="nonEmptyString">
+							<xs:maxLength value="25" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="Digest">
+					<xs:simpleType>
+						<xs:restriction base="nonEmptyString">
+							<xs:pattern value="-|.{44}" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Form_ITR4">
+		<xs:annotation>
+			<xs:documentation>Enter details of IT return form</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="FormName">
+					<xs:simpleType>
+						<xs:restriction base="nonEmptyString">
+							<xs:pattern value="ITR-4"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="Description" fixed="For Individuals having Income From Presemptive Business">
+					<xs:simpleType>
+						<xs:restriction base="nonEmptyString">
+							<xs:maxLength value="75" />
+							<xs:minLength value="1" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="AssessmentYear">
+					<xs:simpleType>
+						<xs:restriction base="nonEmptyString">
+							<xs:maxLength value="4" />
+							<xs:minLength value="4" />
+							<xs:pattern value="2019"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="SchemaVer">
+					<xs:simpleType>
+						<xs:restriction base="nonEmptyString">
+							<xs:maxLength value="10" />
+							<xs:minLength value="1" />
+							<xs:pattern value="Ver1.0"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="FormVer">
+					<xs:simpleType>
+						<xs:restriction base="nonEmptyString">
+							<xs:maxLength value="10" />
+							<xs:minLength value="1" />
+							<xs:pattern value="Ver1.0"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="PersonalInfo">
+		<xs:annotation>
+			<xs:documentation>Enter personal information</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="AssesseeName">
+					<xs:annotation>
+						<xs:documentation>Assessee name with Sur Name or Org Name mandatory.</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="PAN">
+					<xs:simpleType>
+						<xs:restriction base="nonEmptyString">
+							<xs:pattern value="[A-Z]{5}[0-9]{4}[A-Z]" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element ref="Address">
+					<xs:annotation>
+						<xs:documentation> Address of assessee</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="DOB">
+					<xs:simpleType>
+						<xs:restriction base="xs:date">
+							<xs:maxInclusive value="2019-03-31" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="EmployerCategory">
+					<xs:annotation>
+						<xs:documentation>
+						    "GOV":"Government",
+                            "PSU":"Public Sector Unit",
+                            "PE":"Pensioners",
+                            "OTH":"Others",
+                             "NA":"Not Applicable"
+						</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:token">
+							<xs:enumeration value="GOV" />
+							<xs:enumeration value="PSU" />
+							<xs:enumeration value="PE" />
+							<xs:enumeration value="OTH" />
+							<xs:enumeration value="NA" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="Status">
+					<xs:simpleType>
+						<xs:restriction base="xs:token">
+							<xs:enumeration value="I" />
+							<xs:enumeration value="H" />
+							<xs:enumeration value="F" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="AadhaarCardNo" minOccurs="0">
+					<xs:simpleType>
+						<xs:restriction base="nonEmptyString">
+							<xs:pattern value="[0-9]{12}"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>	
+				<xs:element name="AadhaarEnrolmentId" minOccurs="0">
+					<xs:simpleType>
+						<xs:restriction base="nonEmptyString">
+							<xs:pattern value="[0-9]{28}"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>			
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="FilingStatus">
+		<xs:annotation>
+			<xs:documentation> Filing status of assesse</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="ReturnFileSec" default="11">
+					<xs:annotation>
+						<xs:documentation>
+							11 : 139(1)-On or before due date
+							12 : 139(4)-After due date
+							13 : 142(1)
+							14 : 148
+							15 : 153A
+							16 : 153C
+							17 : 139(5)-Revised Return 
+							18 : 139(9)
+							20 : 119(2)(b)- after condonation of delay
+						</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedInt">
+							<xs:enumeration value="11" />
+							<xs:enumeration value="12" />
+							<xs:enumeration value="13" />
+							<xs:enumeration value="14" />
+							<xs:enumeration value="15" />
+							<xs:enumeration value="16" />
+							<xs:enumeration value="17" />
+							<xs:enumeration value="18" />
+							<xs:enumeration value="20" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="ReceiptNo" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation> Enter the Receipt number of the
+							original return.
+						</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:token">
+							<xs:pattern value="[0-9]{15}" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="NoticeNo" minOccurs="0">
+					<xs:simpleType>
+						<xs:restriction base="nonEmptyString">
+							<xs:maxLength value="23" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="OrigRetFiledDate" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Enter Date of filing of Original return
+						</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:date">
+							<xs:minInclusive value="2019-04-01" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="NoticeDateUnderSec" minOccurs="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:date">
+							<xs:minInclusive value="2019-04-01" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="AsseseeRepFlg">
+					<xs:annotation>
+						<xs:documentation>
+							Y - Yes
+							N - No
+						</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="nonEmptyString">
+							<xs:enumeration value="Y" />
+							<xs:enumeration value="N" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element ref="AssesseeRep" minOccurs="0" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="AssesseeRep">
+		<xs:annotation>
+			<xs:documentation>Assessee representative</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="RepName">
+					<xs:simpleType>
+						<xs:restriction base="nonEmptyString">
+							<xs:maxLength value="125" />
+							<xs:minLength value="1" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="RepCapacity">
+					<xs:annotation>
+						<xs:documentation>
+							L - Legal Heir
+							M - Manager
+							G - Guardian
+							O - Other
+						</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="nonEmptyString">
+							<xs:enumeration value="L" />
+							<xs:enumeration value="M" />
+							<xs:enumeration value="G" />
+							<xs:enumeration value="O" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="RepAddress">
+					<xs:simpleType>
+						<xs:restriction base="nonEmptyString">
+							<xs:maxLength value="250" />
+							<xs:minLength value="1" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="RepPAN">
+					<xs:simpleType>
+						<xs:restriction base="nonEmptyString">
+							<xs:pattern value="[A-Z]{3}[P][A-Z][0-9]{4}[A-Z]" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="IncomeDeductions">
+		<xs:annotation>
+			<xs:documentation>Income and deduction details</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="IncomeFromBusinessProf" default="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:totalDigits value="14" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element> 
+				<xs:element name="GrossSalary" minOccurs="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:totalDigits value="14" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="Salary" minOccurs="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:totalDigits value="14" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="PerquisitesValue" minOccurs="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:totalDigits value="14" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="ProfitsInSalary" minOccurs="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:totalDigits value="14" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="AllwncExemptUs10" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="AllwncExemptUs10Dtls" type="AllwncExemptUs10DtlsType" maxOccurs="unbounded" minOccurs="0" />
+							<xs:element name="TotalAllwncExemptUs10" default="0">
+								<xs:simpleType>
+									<xs:restriction base="xs:unsignedLong">
+										<xs:totalDigits value="14" />
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="NetSalary" minOccurs="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:totalDigits value="14" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="DeductionUs16" minOccurs="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:totalDigits value="14" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="DeductionUs16ia" minOccurs="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:totalDigits value="14" />
+							<xs:maxInclusive value="40000"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="EntertainmntalwncUs16ii" minOccurs="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:totalDigits value="14" />
+							<xs:maxInclusive value="5000" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="ProfessionalTaxUs16iii" minOccurs="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:totalDigits value="14" />
+							<xs:maxInclusive value="5000" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="IncomeFromSal" default="0" minOccurs="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:totalDigits value="14" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="TypeOfHP" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>
+						"S":"Self Occupied"
+						"L":"Let Out"
+						"D":"Deemed let out"
+						</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="nonEmptyString">
+							<xs:pattern value="S|L|D" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="GrossRentReceived" minOccurs="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:totalDigits value="14" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="TaxPaidlocalAuth" minOccurs="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:totalDigits value="14" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="AnnualValue" minOccurs="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:long">
+							<xs:totalDigits value="14" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="AnnualValue30Percent" minOccurs="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:totalDigits value="14" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="InterestPayable" minOccurs="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:totalDigits value="14" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="ArrearsUnrealizedRentRcvd" minOccurs="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:totalDigits value="14" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="TotalIncomeOfHP" default="0">
+					<xs:annotation>
+						<xs:documentation>House Property income</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:long">
+							<xs:totalDigits value="14" />
+							<xs:minInclusive value="-200000"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="IncomeOthSrc" default="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:long">
+							<xs:totalDigits value="14" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="OthersInc" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="OthersIncDtlsOthSrc" type="OtherSourceIncome" maxOccurs="unbounded" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="DeductionUs57iia" minOccurs="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:totalDigits value="14" />
+							<xs:maxInclusive value="15000"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="GrossTotIncome" default="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:long">
+							<xs:totalDigits value="14" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="UsrDeductUndChapVIA" type="UsrDeductUndChapVIAType">
+					<xs:annotation>
+						<xs:documentation>Deductions from income</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="DeductUndChapVIA" type="DeductUndChapVIAType">
+					<xs:annotation>
+						<xs:documentation>Deductions from income</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="TotalIncome" default="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:totalDigits value="14" />
+							<xs:maxInclusive value="5000000"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="AllwncExemptUs10DtlsType">
+			<xs:sequence>
+				<xs:element name="SalNatureDesc">
+					<xs:annotation>
+						<xs:documentation>
+						    10(5)    - Sec 10(5)-Leave Travel concession/assistance
+							10(6)    - Sec 10(6)-Remuneration received as an official, by whatever name called, of an embassy, high commission etc.
+							10(7)    - Sec 10(7)-Allowances or perquisites paid or allowed as such outside India by the Government to a citizen of India for rendering service outside India
+							10(10)   - Sec 10(10)-Death-cum-retirement gratuity received 
+							10(10A)  - Sec 10(10A)-Commuted value of pension received
+							10(10AA) - Sec 10(10AA)-Earned leave encashment on Retirement
+							10(10B)(i) - Sec 10(10B)(i)-Retrenchment Compensation received in respect of schemes not approved
+							10(10B)(ii) - Sec 10(10B)(ii)-Retrenchment Compensation received in respect of approved scheme
+							10(10C)   - Sec 10(10C)- Amount received/receivable on voluntary retirement or termination of service
+							10(10CC)  - Sec 10(10CC)-Tax paid by employer on non-monetary perquisite
+							10(13A)   - Sec 10(13A)-Allowance to meet expenditure incurred on house rent
+							10(14)(i) - Sec 10(14)(i)- Prescribed Allowances or benefits (not in a nature of perquisite) specifically granted to meet expenses wholly, necessarily and exclusively and to the extent actually incurred, in performance of duties of office or employment
+							10(14)(ii) - Sec 10(14)(ii) -Prescribed Allowances or benefits granted to meet personal expenses in performance of duties of office or employment or to compensate him for increased cost of living. 
+							OTH        - Any Other
+						</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="nonEmptyString">
+							<xs:enumeration value="10(5)" />
+							<xs:enumeration value="10(6)" />
+							<xs:enumeration value="10(7)" />
+							<xs:enumeration value="10(10)" />
+							<xs:enumeration value="10(10A)" />
+							<xs:enumeration value="10(10AA)" />
+							<xs:enumeration value="10(10B)(i)" />
+							<xs:enumeration value="10(10B)(ii)" />
+							<xs:enumeration value="10(10C)" />
+							<xs:enumeration value="10(10CC)" />
+							<xs:enumeration value="10(13A)" />
+							<xs:enumeration value="10(14)(i)" />
+							<xs:enumeration value="10(14)(ii)" />
+							<xs:enumeration value="OTH" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="SalOthNatOfInc" minOccurs="0">
+					<xs:simpleType>
+						<xs:restriction base="nonEmptyString">
+							<xs:maxLength value="125"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="SalOthAmount">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:totalDigits value="14" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+		<xs:complexType name="OtherSourceIncome">
+			<xs:sequence>
+				<xs:element name="OthSrcNatureDesc">
+					<xs:annotation>
+						<xs:documentation>
+						SAV : Interest from Saving Account
+						IFD : Interest from Deposit(Bank/Post Office/Cooperative Society)
+						TAX : Interest from Income Tax Refund
+						FAP : Family pension
+						OTH : Any Other
+						</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="nonEmptyString">
+							<xs:enumeration value="SAV" />
+							<xs:enumeration value="IFD" />
+							<xs:enumeration value="TAX" />
+							<xs:enumeration value="FAP" />
+							<xs:enumeration value="OTH" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="OthSrcOthNatOfInc" minOccurs="0">
+					<xs:simpleType>
+						<xs:restriction base="nonEmptyString">
+							<xs:maxLength value="125"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="OthSrcOthAmount">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:totalDigits value="14" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+		
+	<xs:element name="TaxComputation">
+		<xs:annotation>
+			<xs:documentation>Tax computation details</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="TotalTaxPayable" default="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:totalDigits value="14" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="Rebate87A" default="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:maxInclusive value="2500" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="TaxPayableOnRebate" default="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:totalDigits value="14" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="EducationCess" default="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:totalDigits value="14" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="GrossTaxLiability" default="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:totalDigits value="14" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="Section89" default="0" minOccurs="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:totalDigits value="14" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="NetTaxLiability" default="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:totalDigits value="14" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element ref="IntrstPay"/>
+				<xs:element name="TotTaxPlusIntrstPay" default="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:totalDigits value="14" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="TaxPaid">
+		<xs:annotation>
+			<xs:documentation>Tax paid details</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="TaxesPaid" />
+				<xs:element name="BalTaxPayable" default="0" minOccurs="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:totalDigits value="14" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Refund">
+		<xs:annotation>
+			<xs:documentation>Refund details</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="RefundDue" default="0">
+					<xs:annotation>
+						<xs:documentation>Refund due if Total Taxes Paid is greater than AggregateTaxInterest</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:totalDigits value="14" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element ref="BankAccountDtls" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Schedule80G">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Don100Percent" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="DoneeWithPan" maxOccurs="unbounded" />
+							<xs:element name="TotDon100PercentCash" default="0">
+								<xs:simpleType>
+									<xs:restriction base="xs:unsignedLong">
+										<xs:totalDigits value="14" />
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="TotDon100PercentOtherMode" default="0">
+								<xs:simpleType>
+									<xs:restriction base="xs:unsignedLong">
+										<xs:totalDigits value="14" />
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="TotDon100Percent" default="0">
+								<xs:simpleType>
+									<xs:restriction base="xs:unsignedLong">
+										<xs:totalDigits value="14" />
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="TotEligibleDon100Percent" default="0">
+								<xs:simpleType>
+									<xs:restriction base="xs:unsignedLong">
+										<xs:totalDigits value="14" />
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Don50PercentNoApprReqd" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="DoneeWithPan" maxOccurs="unbounded" />
+							<xs:element name="TotDon50PercentNoApprReqdCash" default="0">
+								<xs:simpleType>
+									<xs:restriction base="xs:unsignedLong">
+										<xs:totalDigits value="14" />
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="TotDon50PercentNoApprReqdOtherMode" default="0">
+								<xs:simpleType>
+									<xs:restriction base="xs:unsignedLong">
+										<xs:totalDigits value="14" />
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="TotDon50PercentNoApprReqd" default="0">
+								<xs:simpleType>
+									<xs:restriction base="xs:unsignedLong">
+										<xs:totalDigits value="14" />
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="TotEligibleDon50Percent" default="0">
+								<xs:simpleType>
+									<xs:restriction base="xs:unsignedLong">
+										<xs:totalDigits value="14" />
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Don100PercentApprReqd" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="DoneeWithPan" maxOccurs="unbounded" />
+							<xs:element name="TotDon100PercentApprReqdCash" default="0">
+								<xs:simpleType>
+									<xs:restriction base="xs:unsignedLong">
+										<xs:totalDigits value="14" />
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="TotDon100PercentApprReqdOtherMode" default="0">
+								<xs:simpleType>
+									<xs:restriction base="xs:unsignedLong">
+										<xs:totalDigits value="14" />
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="TotDon100PercentApprReqd" default="0">
+								<xs:simpleType>
+									<xs:restriction base="xs:unsignedLong">
+										<xs:totalDigits value="14" />
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="TotEligibleDon100PercentApprReqd"	default="0">
+								<xs:simpleType>
+									<xs:restriction base="xs:unsignedLong">
+										<xs:totalDigits value="14" />
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Don50PercentApprReqd" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="DoneeWithPan" maxOccurs="unbounded" />
+							<xs:element name="TotDon50PercentApprReqdCash" default="0">
+								<xs:simpleType>
+									<xs:restriction base="xs:unsignedLong">
+										<xs:totalDigits value="14" />
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="TotDon50PercentApprReqdOtherMode" default="0">
+								<xs:simpleType>
+									<xs:restriction base="xs:unsignedLong">
+										<xs:totalDigits value="14" />
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="TotDon50PercentApprReqd" default="0">
+								<xs:simpleType>
+									<xs:restriction base="xs:unsignedLong">
+										<xs:totalDigits value="14" />
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="TotEligibleDon50PercentApprReqd" default="0">
+								<xs:simpleType>
+									<xs:restriction base="xs:unsignedLong">
+										<xs:totalDigits value="14" />
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="TotalDonationsUs80GCash" default="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:totalDigits value="14" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="TotalDonationsUs80GOtherMode" default="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:totalDigits value="14" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="TotalDonationsUs80G" default="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:totalDigits value="14" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="TotalEligibleDonationsUs80G" default="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:totalDigits value="14" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="TaxExmpIntIncDtls">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="OthersInc" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="OthersIncDtls" type="ExemptUs10" maxOccurs="unbounded" minOccurs="0" />
+							<xs:element name="OthersTotalTaxExe" default="0">
+								<xs:simpleType>
+									<xs:restriction base="xs:unsignedLong">
+										<xs:totalDigits value="14" />
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="ExemptUs10">
+		<xs:sequence>
+			<xs:element name="NatureDesc">
+				<xs:annotation>
+					<xs:documentation>
+						AGRI : Agriculture Income (≤ Rs.5000)
+						10(10BC): Sec 10(10BC)-Any amount from the Central/State Govt./local authority by way of compensation on account of any disaster
+						10(10D) : Sec 10(10D)- Any sum received under a life insurance policy except mentioned in sub-clause (a) to (d)
+						10(11)	:	Sec 10(11)-Statuory Provident Fund received
+						10(12)  :   Sec 10(12)-Recognised Provident Fund received
+						10(13)	:	Sec 10(13)-Approved superannuation fund received
+						10(16)	:	Sec 10(16)-Scholarships granted to meet the cost of education
+						10(17)	:	Sec 10(17)-Allownace MP/MLA/MLC
+						10(17A)	:	Sec 10(17A)-Award instituted by Government
+						10(18)	:	Sec 10(18)-Pension received by winner of  "Param Vir Chakra" or "Maha Vir Chakra" or "Vir Chakra" or such other gallantry award
+						DMDP 	: 	Defense medical disability pension
+						10(19) : Sec 10(19)-Armed Forces Family pension in case of death during operational duty
+						10(26) : Sec 10(26)-Any income as referred to in section 10(26)
+						10(26AAA): Sec 10(26AAA)-Any income as referred to in section 10(26AAA)
+						10(34) : Sec.10(34) (Exempted Dividend Income)
+						OTH : Any Other
+					</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="nonEmptyString">
+						<xs:enumeration value="AGRI" />
+						<xs:enumeration value="10(10BC)" />
+						<xs:enumeration value="10(10D)" />
+						<xs:enumeration value="10(11)" />
+						<xs:enumeration value="10(12)" />
+						<xs:enumeration value="10(13)" />
+						<xs:enumeration value="10(16)" />
+						<xs:enumeration value="10(17)" />
+						<xs:enumeration value="10(17A)" />
+						<xs:enumeration value="10(18)" />
+						<xs:enumeration value="DMDP" />
+						<xs:enumeration value="10(19)" />
+						<xs:enumeration value="10(26)" />
+						<xs:enumeration value="10(26AAA)" />
+						<xs:enumeration value="10(34)" />
+						<xs:enumeration value="OTH" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="OthNatOfInc" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="nonEmptyString">
+						<xs:maxLength value="125" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="OthAmount">
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedLong">
+						<xs:totalDigits value="14" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="Verification">
+		<xs:annotation>
+			<xs:documentation>Verification declaration details</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="Declaration">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="AssesseeVerName">
+								<xs:simpleType>
+									<xs:restriction base="nonEmptyString">
+										<xs:minLength value="1" />
+										<xs:maxLength value="125" />
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="FatherName">
+								<xs:simpleType>
+									<xs:restriction base="nonEmptyString">
+										<xs:minLength value="1" />
+										<xs:maxLength value="125" />
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="AssesseeVerPAN">
+								<xs:simpleType>
+									<xs:restriction base="nonEmptyString">
+										<xs:pattern value="[A-Z]{3}[P][A-Z][0-9]{4}[A-Z]" />
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Capacity">
+					<xs:annotation>
+						<xs:documentation>
+							S : Self 
+							R : Representative
+							K : Karta
+							P : Partner
+						</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:enumeration value="S" />
+							<xs:enumeration value="R" />
+							<xs:enumeration value="K" />
+							<xs:enumeration value="P" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="Place">
+					<xs:simpleType>
+						<xs:restriction base="nonEmptyString">
+							<xs:minLength value="1" />
+							<xs:maxLength value="50" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="TaxReturnPreparer">
+		<xs:annotation>
+			<xs:documentation>TRP details</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="IdentificationNoOfTRP">
+					<xs:simpleType>
+						<xs:restriction base="nonEmptyString">
+							<xs:pattern value="[T][0-9]{9}|[0-9]{6}" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="NameOfTRP">
+					<xs:simpleType>
+						<xs:restriction base="nonEmptyString">
+							<xs:maxLength value="125" />
+							<xs:minLength value="1" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="ReImbFrmGov" default="0" minOccurs="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:totalDigits value="14" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+		<xs:complexType name="NatOfBus44ADA">
+			<xs:sequence>
+				<xs:element name="NameOfBusiness">
+					<xs:simpleType>
+						<xs:restriction base="nonEmptyString">
+							<xs:maxLength value="75" />
+							<xs:minLength value="1" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="CodeADA">
+					<xs:annotation>
+						<xs:documentation>
+							14001 - Software development 
+							14002 - Other software consultancy  
+							14003 - Data processing 
+							14004 - Database activities and distribution of electronic content 
+							14005 - Other IT enabled services 
+							14006 - BPO services 
+							14008 - Maintenance and repair of office, accounting and computing machinery 
+							16001 - Legal profession 
+							16002 - Accounting, book-keeping and auditing profession 
+							16003 - Tax consultancy 
+							16004 - Architectural profession 
+							16005 - Engineering and technical consultancy 
+							16007 - Fashion designing 
+							16008 - Interior decoration 
+							16018 - Secretarial activities 
+							18001 - General  hospitals 
+							18002 - Speciality and super speciality hospitals 
+							18003 - Nursing homes 
+							18004 - Diagnostic centres   
+							18005 - Pathological laboratories 
+							18010 - Medical clinics  
+							18011 - Dental practice  
+							18012 - Ayurveda practice 
+							18013 - Unani practice 
+							18014 - Homeopathy practice 
+							18015 - Nurses, physiotherapists or other para-medical practitioners 
+							18016 - Veterinary hospitals and practice 
+							18017 - Other healthcare services 
+							20010 - Individual artists excluding authors 
+							20011 - Literary activities 
+							20012 - Other cultural activities n.e.c. 
+						</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="nonEmptyString">
+							<xs:enumeration value="14001" />
+							<xs:enumeration value="14002" />
+							<xs:enumeration value="14003" />
+							<xs:enumeration value="14004" />
+							<xs:enumeration value="14005" />
+							<xs:enumeration value="14006" />
+							<xs:enumeration value="14008" />
+							<xs:enumeration value="16001" />
+							<xs:enumeration value="16002" />
+							<xs:enumeration value="16003" />
+							<xs:enumeration value="16004" />
+							<xs:enumeration value="16005" />
+							<xs:enumeration value="16007" />
+							<xs:enumeration value="16008" />
+							<xs:enumeration value="16018" />
+							<xs:enumeration value="18001" />
+							<xs:enumeration value="18002" />
+							<xs:enumeration value="18003" />
+							<xs:enumeration value="18004" />
+							<xs:enumeration value="18005" />
+							<xs:enumeration value="18010" />
+							<xs:enumeration value="18011" />
+							<xs:enumeration value="18012" />
+							<xs:enumeration value="18013" />
+							<xs:enumeration value="18014" />
+							<xs:enumeration value="18015" />
+							<xs:enumeration value="18016" />
+							<xs:enumeration value="18017" />
+							<xs:enumeration value="20010" />
+							<xs:enumeration value="20011" />
+							<xs:enumeration value="20012" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="Description" minOccurs="0">
+					<xs:simpleType>
+						<xs:restriction base="nonEmptyString">
+							<xs:maxLength value="75" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+		<xs:complexType name="NatOfBus44AE">
+			<xs:sequence>
+				<xs:element name="NameOfBusiness">
+					<xs:simpleType>
+						<xs:restriction base="nonEmptyString">
+							<xs:maxLength value="75" />
+							<xs:minLength value="1" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="CodeAE">
+					<xs:annotation>
+						<xs:documentation>
+							01001 - Growing and manufacturing of tea
+							01002 - Growing and manufacturing of coffee
+							01003 - Growing and manufacturing of rubber
+							01004 - Market gardening and horticulture specialties
+							01005 - Raising of silk worms and production of silk
+							01006 - Raising of bees and production of honey
+							01007 - Raising of poultry and production of eggs
+							01008 - Rearing of sheep and production of wool
+							01009 - Rearing of animals and production of animal products
+							01010 - Agricultural and animal husbandry services
+							01011 - Soil conservation, soil testing and soil desalination services
+							01012 - Hunting, trapping and game propagation services
+							01013 - Growing of timber, plantation, operation of tree nurseries and conserving of forest
+							01014 - Gathering of tendu leaves
+							01015 - Gathering of other wild growing materials
+							01016 - Forestry service activities, timber cruising, afforestation and reforestation
+							01017 - Logging service activities, transport of logs within the forest
+							01018 - Other agriculture, animal husbandry or forestry activity n.e.c
+							02001 - Fishing on commercial basis in inland waters
+							02002 - Fishing on commercial basis in ocean and coastal areas
+							02003 - Fish farming
+							02004 - Gathering of marine materials such as natural pearls, sponges, coral etc.
+							02005 - Services related to marine and fresh water fisheries, fish hatcheries and fish farms
+							02006 - Other Fish farming activity n.e.c
+							03001 - Mining and agglomeration of hard coal
+							03002 - Mining and agglomeration of lignite
+							03003 - Extraction and agglomeration of peat
+							03004 - Extraction of crude petroleum and natural gas
+							03005 - Service activities incidental to oil and gas extraction excluding surveying
+							03006 - Mining of uranium and thorium ores
+							03007 - Mining of iron ores
+							03008 - Mining of non-ferrous metal ores, except uranium and thorium ores
+							03009 - Mining of gemstones
+							03010 - Mining of chemical and fertilizer minerals
+							03011 - Mining of quarrying of abrasive materials
+							03012 - Mining of mica, graphite and asbestos
+							03013 - Quarrying of stones (marble/granite/dolomite), sand and clay
+							03014 - Other mining and quarrying
+							03015 - Mining and production of salt
+							03016 - Other mining and quarrying n.e.c
+							04001 - Production, processing and preservation of meat and meat products
+							04002 - Production, processing and preservation of fish and fish products
+							04003 - Manufacture of vegetable oil, animal oil and fats
+							04004 - Processing of fruits, vegetables and edible nuts
+							04005 - Manufacture of dairy products
+							04006 - Manufacture of sugar
+							04007 - Manufacture of cocoa, chocolates and sugar confectionery
+							04008 - Flour milling
+							04009 - Rice milling
+							04010 - Dal milling
+							04011 - Manufacture of other grain mill products
+							04012 - Manufacture of bakery products
+							04013 - Manufacture of starch products
+							04014 - Manufacture of animal feeds
+							04015 - Manufacture of other food products
+							04016 - Manufacturing of wines
+							04017 - Manufacture of beer
+							04018 - Manufacture of malt liquors
+							04019 - Distilling and blending of spirits, production of ethyl alcohol
+							04020 - Manufacture of mineral water
+							04021 - Manufacture of soft drinks
+							04022 - Manufacture of other non-alcoholic beverages
+							04023 - Manufacture of tobacco products
+							04024 - Manufacture of textiles (other than by handloom)
+							04025 - Manufacture of textiles using handlooms (khadi)
+							04026 - Manufacture of carpet, rugs, blankets, shawls etc. (other than by hand)
+							04027 - Manufacture of carpet, rugs, blankets, shawls etc. by hand
+							04028 - Manufacture of wearing apparel
+							04029 - Tanning and dressing of leather
+							04030 - Manufacture of luggage, handbags and the like saddler and harness
+							04031 - Manufacture of footwear
+							04032 - Manufacture of wood and wood products, cork, straw and plaiting material
+							04033 - Manufacture of paper and paper products
+							04034 - Publishing, printing and reproduction of recorded media
+							04035 - Manufacture of coke oven products
+							04036 - Manufacture of refined petroleum products
+							04037 - Processing of nuclear fuel
+							04038 - Manufacture of fertilizers and nitrogen compounds
+							04039 - Manufacture of plastics in primary forms and of synthetic rubber
+							04040 - Manufacture of paints, varnishes and similar coatings
+							04041 - Manufacture of pharmaceuticals, medicinal chemicals and botanical products
+							04042 - Manufacture of soap and detergents
+							04043 - Manufacture of other chemical products
+							04044 - Manufacture of man-made fibers
+							04045 - Manufacture of rubber products
+							04046 - Manufacture of plastic products
+							04047 - Manufacture of glass and glass products
+							04048 - Manufacture of cement, lime and plaster
+							04049 - Manufacture of articles of concrete, cement and plaster
+							04050 - Manufacture of Bricks
+							04051 - Manufacture of other clay and ceramic products
+							04052 - Manufacture of other non-metallic mineral products
+							04053 - Manufacture of pig iron, sponge iron, Direct Reduced Iron etc.
+							04054 - Manufacture of Ferro alloys
+							04055 - Manufacture of Ingots, billets, blooms and slabs etc.
+							04056 - Manufacture of steel products
+							04057 - Manufacture of basic precious and non-ferrous metals
+							04058 - Manufacture of non-metallic mineral products
+							04059 - Casting of metals
+							04060 - Manufacture of fabricated metal products
+							04061 - Manufacture of engines and turbines
+							04062 - Manufacture of pumps and compressors
+							04063 - Manufacture of bearings and gears
+							04064 - Manufacture of ovens and furnaces
+							04065 - Manufacture of lifting and handling equipment
+							04066 - Manufacture of other general purpose machinery
+							04067 - Manufacture of agricultural and forestry machinery
+							04068 - Manufacture of Machine Tools
+							04069 - Manufacture of machinery for metallurgy
+							04070 - Manufacture of machinery for mining, quarrying and constructions
+							04071 - Manufacture of machinery for processing of food and beverages
+							04072 - Manufacture of machinery for leather and textile
+							04073 - Manufacture of weapons and ammunition
+							04074 - Manufacture of other special purpose machinery
+							04075 - Manufacture of domestic appliances
+							04076 - Manufacture of office, accounting and computing machinery
+							04077 - Manufacture of electrical machinery and apparatus
+							04078 - Manufacture of Radio, Television, communication equipment and apparatus
+							04079 - Manufacture of medical and surgical equipment
+							04080 - Manufacture of industrial process control equipment
+							04081 - Manufacture of instruments and appliances for measurements and navigation
+							04082 - Manufacture of optical instruments
+							04083 - Manufacture of watches and clocks
+							04084 - Manufacture of motor vehicles
+							04085 - Manufacture of body of motor vehicles
+							04086 - Manufacture of parts and accessories of motor vehicles and engines
+							04087 - Building and repair of ships and boats
+							04088 - Manufacture of railway locomotive and rolling stocks
+							04089 - Manufacture of aircraft and spacecraft
+							04090 - Manufacture of bicycles
+							04091 - Manufacture of other transport equipment
+							04092 - Manufacture of furniture
+							04093 - Manufacture of jewellery
+							04094 - Manufacture of sports goods
+							04095 - Manufacture of musical instruments
+							04096 - Manufacture of games and toys
+							04097 - Other manufacturing n.e.c.
+							04098 - Recycling of metal waste and scrap
+							04099 - Recycling of non- metal waste and scrap
+							05001 - Production, collection and distribution of electricity
+							05002 - Manufacture and distribution of gas
+							05003 - Collection, purification and distribution of water
+							05004 - Other essential commodity service n.e.c
+							06001 - Site preparation works
+							06002 - Building of complete constructions or parts- civil contractors
+							06003 - Building installation
+							06004 - Building completion
+							06005 - Construction and maintenance of roads, rails, bridges, tunnels, ports, harbour, runways etc.
+							06006 - Construction and maintenance of power plants
+							06007 - Construction and maintenance of industrial plants
+							06008 - Construction and maintenance of power transmission and telecommunication lines
+							06009 - Construction of water ways and water reservoirs
+							06010 - Other construction activity n.e.c.
+							07001 - Purchase, sale and letting of leased buildings (residential and non-residential)
+							07002 - Operating of real estate of self-owned buildings (residential and non-residential)
+							07003 - Developing and sub-dividing real estate into lots
+							07004 - Real estate activities on a fee or contract basis
+							07005 - Other real estate/renting services n.e.c
+							08001 - Renting of land transport equipment
+							08002 - Renting of water transport equipment
+							08003 - Renting of air transport equipment
+							08004 - Renting of agricultural machinery and equipment
+							08005 - Renting of construction and civil engineering machinery
+							08006 - Renting of office machinery and equipment
+							08007 - Renting of other machinery and equipment n.e.c.
+							08008 - Renting of personal and household goods n.e.c.
+							08009 - Renting of other machinery n.e.c.
+							09001 - Wholesale and retail sale of motor vehicles
+							09002 - Repair and maintenance of motor vehicles
+							09003 - Sale of motor parts and accessories- wholesale and retail
+							09004 - Retail sale of automotive fuel
+							09005 - General commission agents, commodity brokers and auctioneers
+							09006 - Wholesale of agricultural raw material
+							09007 - Wholesale of food and beverages and tobacco
+							09008 - Wholesale of household goods
+							09009 - Wholesale of metals and metal ores
+							09010 - Wholesale of household goods
+							09011 - Wholesale of construction material
+							09012 - Wholesale of hardware and sanitary fittings
+							09013 - Wholesale of cotton and jute
+							09014 - Wholesale of raw wool and raw silk
+							09015 - Wholesale of other textile fibres
+							09016 - Wholesale of industrial chemicals
+							09017 - Wholesale of fertilizers and pesticides
+							09018 - Wholesale of electronic parts and equipment
+							09019 - Wholesale of other machinery, equipment and supplies
+							09020 - Wholesale of waste, scrap and materials for re-cycling
+							09021 - Retail sale of food, beverages and tobacco in specialized stores
+							09022 - Retail sale of other goods in specialized stores
+							09023 - Retail sale in non-specialized stores
+							09024 - Retail sale of textiles, apparel, footwear, leather goods
+							09025 - Retail sale of other household appliances
+							09026 - Retail sale of hardware, paint and glass
+							09027 - Wholesale of other products n.e.c
+							09028 - Retail sale of other products n.e.c
+							10001 - Hotels – Star rated
+							10002 - Hotels – Non-star rated
+							10003 - Motels, Inns and Dharmshalas
+							10004 - Guest houses and circuit houses
+							10005 - Dormitories and hostels at educational institutions
+							10006 - Short stay accommodations n.e.c.
+							10007 - Restaurants – with bars
+							10008 - Restaurants – without bars
+							10009 - Canteens
+							10010 - Independent caterers
+							10011 - Casinos and other games of chance
+							10012 - Other hospitality services n.e.c.
+							11001 - Travel agencies and tour operators
+							11002 - Packers and movers
+							11003 - Passenger land transport
+							11004 - Air transport
+							11005 - Transport by urban/sub-urban railways
+							11006 - Inland water transport
+							11007 - Sea and coastal water transport
+							11008 - Freight transport by road
+							11009 - Freight transport by railways
+							11010 - Forwarding of freight
+							11011 - Receiving and acceptance of freight
+							11012 - Cargo handling
+							11013 - Storage and warehousing
+							11014 - Transport via pipelines (transport of gases, liquids, slurry and other commodities)
+							11015 - Other Transport and Logistics services n.e.c
+							12001 - Post and courier activities
+							12002 - Basic telecom services
+							12003 - Value added telecom services
+							12004 - Maintenance of telecom network
+							12005 - Activities of the cable operators
+							12006 - Other Post and Telecommunication services n.e.c
+							13001 - Commercial banks, saving banks and discount houses
+							13002 - Specialised institutions granting credit
+							13003 - Financial leasing
+							13004 - Hire-purchase financing
+							13005 - Housing finance activities
+							13006 - Commercial loan activities
+							13007 - Credit cards
+							13008 - Mutual funds
+							13009 - Chit fund
+							13010 - Investment activities
+							13011 - Life insurance
+							13012 - Pension funding
+							13013 - Non-life insurance
+							13014 - Administration of financial markets
+							13015 - Stock brokers, sub-brokers and related activities
+							13016 - Financial advisers, mortgage advisers and brokers
+							13017 - Foreign exchange services
+							13018 - Other financial intermediation services n.e.c.
+							14001 - Software development
+							14002 - Other software consultancy
+							14003 - Data processing
+							14004 - Database activities and distribution of electronic content
+							14005 - Other IT enabled services
+							14006 - BPO services
+							14007 - Cyber café
+							14008 - Maintenance and repair of office, accounting and computing machinery
+							14009 - Computer training and educational institutes
+							14010 - Other computation related services n.e.c.
+							15001 - Natural sciences and engineering
+							15002 - Social sciences and humanities
+							15003 - Other Research and Development activities n.e.c.
+							16001 - Legal profession
+							16002 - Accounting, book-keeping and auditing profession
+							16003 - Tax consultancy
+							16004 - Architectural profession
+							16005 - Engineering and technical consultancy
+							16006 - Advertising
+							16007 - Fashion designing
+							16008 - Interior decoration
+							16009 - Photography
+							16010 - Auctioneers
+							16011 - Business brokerage
+							16012 - Market research and public opinion polling
+							16013 - Business and management consultancy activities
+							16014 - Labour recruitment and provision of personnel
+							16015 - Investigation and security services
+							16016 - Building-cleaning and industrial cleaning activities
+							16017 - Packaging activities
+							16018 - Secretarial activities
+							16019 - Other professional services n.e.c.
+							17001 - Primary education
+							17002 - Secondary/ senior secondary education
+							17003 - Technical and vocational secondary/ senior secondary education
+							17004 - Higher education
+							17005 - Education by correspondence
+							17006 - Coaching centres and tuitions
+							17007 - Other education services n.e.c.
+							18001 - General hospitals
+							18002 - Speciality and super speciality hospitals
+							18003 - Nursing homes
+							18004 - Diagnostic centres
+							18005 - Pathological laboratories
+							18006 - Independent blood banks
+							18007 - Medical transcription
+							18008 - Independent ambulance services
+							18009 - Medical suppliers, agencies and stores
+							18010 - Medical clinics
+							18011 - Dental practice
+							18012 - Ayurveda practice
+							18013 - Unani practice
+							18014 - Homeopathy practice
+							18015 - Nurses, physiotherapists or other para-medical practitioners
+							18016 - Veterinary hospitals and practice
+							18017 - Other healthcare services
+							19001 - Social work activities with accommodation (orphanages and old age homes)
+							19002 - Social work activities without accommodation (Creches)
+							19003 - Industry associations, chambers of commerce
+							19004 - Professional organisations
+							19005 - Trade unions
+							19006 - Religious organizations
+							19007 - Political organisations
+							19008 - Other membership organisations n.e.c. (rotary clubs, book clubs and philatelic clubs)
+							19009 - Other Social or community service n.e.c
+							20001 - Motion picture production
+							20002 - Film distribution
+							20003 - Film laboratories
+							20004 - Television channel productions
+							20005 - Television channels broadcast
+							20006 - Video production and distribution
+							20007 - Sound recording studios
+							20008 - Radio - recording and distribution
+							20009 - Stage production and related activities
+							20010 - Individual artists excluding authors
+							20011 - Literary activities
+							20012 - Other cultural activities n.e.c.
+							20013 - Circuses and race tracks
+							20014 - Video Parlours
+							20015 - News agency activities
+							20016 - Library and archives activities
+							20017 - Museum activities
+							20018 - Preservation of historical sites and buildings
+							20019 - Botanical and zoological gardens
+							20020 - Operation and maintenance of sports facilities
+							20021 - Activities of sports and game schools
+							20022 - Organisation and operation of indoor/outdoor sports and promotion and production of sporting events
+							20023 - Other sporting activities n.e.c.
+							20024 - Other recreational activities n.e.c.
+							21001 - Hair dressing and other beauty treatment
+							21002 - Funeral and related activities
+							21003 - Marriage bureaus
+							21004 - Pet care services
+							21005 - Sauna and steam baths, massage salons etc.
+							21006 - Astrological and spiritualists’ activities
+							21007 - Private households as employers of domestic staff
+							21008 - Other services n.e.c.
+							22001 - Extra territorial organisations and bodies (IMF, World Bank, European Commission etc.)
+						</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="nonEmptyString">
+							<xs:enumeration value="01001" />
+							<xs:enumeration value="01002" />
+							<xs:enumeration value="01003" />
+							<xs:enumeration value="01004" />
+							<xs:enumeration value="01005" />
+							<xs:enumeration value="01006" />
+							<xs:enumeration value="01007" />
+							<xs:enumeration value="01008" />
+							<xs:enumeration value="01009" />
+							<xs:enumeration value="01010" />
+							<xs:enumeration value="01011" />
+							<xs:enumeration value="01012" />
+							<xs:enumeration value="01013" />
+							<xs:enumeration value="01014" />
+							<xs:enumeration value="01015" />
+							<xs:enumeration value="01016" />
+							<xs:enumeration value="01017" />
+							<xs:enumeration value="01018" />
+							<xs:enumeration value="02001" />
+							<xs:enumeration value="02002" />
+							<xs:enumeration value="02003" />
+							<xs:enumeration value="02004" />
+							<xs:enumeration value="02005" />
+							<xs:enumeration value="02006" />
+							<xs:enumeration value="03001" />
+							<xs:enumeration value="03002" />
+							<xs:enumeration value="03003" />
+							<xs:enumeration value="03004" />
+							<xs:enumeration value="03005" />
+							<xs:enumeration value="03006" />
+							<xs:enumeration value="03007" />
+							<xs:enumeration value="03008" />
+							<xs:enumeration value="03009" />
+							<xs:enumeration value="03010" />
+							<xs:enumeration value="03011" />
+							<xs:enumeration value="03012" />
+							<xs:enumeration value="03013" />
+							<xs:enumeration value="03014" />
+							<xs:enumeration value="03015" />
+							<xs:enumeration value="03016" />
+							<xs:enumeration value="04001" />
+							<xs:enumeration value="04002" />
+							<xs:enumeration value="04003" />
+							<xs:enumeration value="04004" />
+							<xs:enumeration value="04005" />
+							<xs:enumeration value="04006" />
+							<xs:enumeration value="04007" />
+							<xs:enumeration value="04008" />
+							<xs:enumeration value="04009" />
+							<xs:enumeration value="04010" />
+							<xs:enumeration value="04011" />
+							<xs:enumeration value="04012" />
+							<xs:enumeration value="04013" />
+							<xs:enumeration value="04014" />
+							<xs:enumeration value="04015" />
+							<xs:enumeration value="04016" />
+							<xs:enumeration value="04017" />
+							<xs:enumeration value="04018" />
+							<xs:enumeration value="04019" />
+							<xs:enumeration value="04020" />
+							<xs:enumeration value="04021" />
+							<xs:enumeration value="04022" />
+							<xs:enumeration value="04023" />
+							<xs:enumeration value="04024" />
+							<xs:enumeration value="04025" />
+							<xs:enumeration value="04026" />
+							<xs:enumeration value="04027" />
+							<xs:enumeration value="04028" />
+							<xs:enumeration value="04029" />
+							<xs:enumeration value="04030" />
+							<xs:enumeration value="04031" />
+							<xs:enumeration value="04032" />
+							<xs:enumeration value="04033" />
+							<xs:enumeration value="04034" />
+							<xs:enumeration value="04035" />
+							<xs:enumeration value="04036" />
+							<xs:enumeration value="04037" />
+							<xs:enumeration value="04038" />
+							<xs:enumeration value="04039" />
+							<xs:enumeration value="04040" />
+							<xs:enumeration value="04041" />
+							<xs:enumeration value="04042" />
+							<xs:enumeration value="04043" />
+							<xs:enumeration value="04044" />
+							<xs:enumeration value="04045" />
+							<xs:enumeration value="04046" />
+							<xs:enumeration value="04047" />
+							<xs:enumeration value="04048" />
+							<xs:enumeration value="04049" />
+							<xs:enumeration value="04050" />
+							<xs:enumeration value="04051" />
+							<xs:enumeration value="04052" />
+							<xs:enumeration value="04053" />
+							<xs:enumeration value="04054" />
+							<xs:enumeration value="04055" />
+							<xs:enumeration value="04056" />
+							<xs:enumeration value="04057" />
+							<xs:enumeration value="04058" />
+							<xs:enumeration value="04059" />
+							<xs:enumeration value="04060" />
+							<xs:enumeration value="04061" />
+							<xs:enumeration value="04062" />
+							<xs:enumeration value="04063" />
+							<xs:enumeration value="04064" />
+							<xs:enumeration value="04065" />
+							<xs:enumeration value="04066" />
+							<xs:enumeration value="04067" />
+							<xs:enumeration value="04068" />
+							<xs:enumeration value="04069" />
+							<xs:enumeration value="04070" />
+							<xs:enumeration value="04071" />
+							<xs:enumeration value="04072" />
+							<xs:enumeration value="04073" />
+							<xs:enumeration value="04074" />
+							<xs:enumeration value="04075" />
+							<xs:enumeration value="04076" />
+							<xs:enumeration value="04077" />
+							<xs:enumeration value="04078" />
+							<xs:enumeration value="04079" />
+							<xs:enumeration value="04080" />
+							<xs:enumeration value="04081" />
+							<xs:enumeration value="04082" />
+							<xs:enumeration value="04083" />
+							<xs:enumeration value="04084" />
+							<xs:enumeration value="04085" />
+							<xs:enumeration value="04086" />
+							<xs:enumeration value="04087" />
+							<xs:enumeration value="04088" />
+							<xs:enumeration value="04089" />
+							<xs:enumeration value="04090" />
+							<xs:enumeration value="04091" />
+							<xs:enumeration value="04092" />
+							<xs:enumeration value="04093" />
+							<xs:enumeration value="04094" />
+							<xs:enumeration value="04095" />
+							<xs:enumeration value="04096" />
+							<xs:enumeration value="04097" />
+							<xs:enumeration value="04098" />
+							<xs:enumeration value="04099" />
+							<xs:enumeration value="05001" />
+							<xs:enumeration value="05002" />
+							<xs:enumeration value="05003" />
+							<xs:enumeration value="05004" />
+							<xs:enumeration value="06001" />
+							<xs:enumeration value="06002" />
+							<xs:enumeration value="06003" />
+							<xs:enumeration value="06004" />
+							<xs:enumeration value="06005" />
+							<xs:enumeration value="06006" />
+							<xs:enumeration value="06007" />
+							<xs:enumeration value="06008" />
+							<xs:enumeration value="06009" />
+							<xs:enumeration value="06010" />
+							<xs:enumeration value="07001" />
+							<xs:enumeration value="07002" />
+							<xs:enumeration value="07003" />
+							<xs:enumeration value="07004" />
+							<xs:enumeration value="07005" />
+							<xs:enumeration value="08001" />
+							<xs:enumeration value="08002" />
+							<xs:enumeration value="08003" />
+							<xs:enumeration value="08004" />
+							<xs:enumeration value="08005" />
+							<xs:enumeration value="08006" />
+							<xs:enumeration value="08007" />
+							<xs:enumeration value="08008" />
+							<xs:enumeration value="08009" />
+							<xs:enumeration value="09001" />
+							<xs:enumeration value="09002" />
+							<xs:enumeration value="09003" />
+							<xs:enumeration value="09004" />
+							<xs:enumeration value="09005" />
+							<xs:enumeration value="09006" />
+							<xs:enumeration value="09007" />
+							<xs:enumeration value="09008" />
+							<xs:enumeration value="09009" />
+							<xs:enumeration value="09010" />
+							<xs:enumeration value="09011" />
+							<xs:enumeration value="09012" />
+							<xs:enumeration value="09013" />
+							<xs:enumeration value="09014" />
+							<xs:enumeration value="09015" />
+							<xs:enumeration value="09016" />
+							<xs:enumeration value="09017" />
+							<xs:enumeration value="09018" />
+							<xs:enumeration value="09019" />
+							<xs:enumeration value="09020" />
+							<xs:enumeration value="09021" />
+							<xs:enumeration value="09022" />
+							<xs:enumeration value="09023" />
+							<xs:enumeration value="09024" />
+							<xs:enumeration value="09025" />
+							<xs:enumeration value="09026" />
+							<xs:enumeration value="09027" />
+							<xs:enumeration value="09028" />
+							<xs:enumeration value="10001" />
+							<xs:enumeration value="10002" />
+							<xs:enumeration value="10003" />
+							<xs:enumeration value="10004" />
+							<xs:enumeration value="10005" />
+							<xs:enumeration value="10006" />
+							<xs:enumeration value="10007" />
+							<xs:enumeration value="10008" />
+							<xs:enumeration value="10009" />
+							<xs:enumeration value="10010" />
+							<xs:enumeration value="10011" />
+							<xs:enumeration value="10012" />
+							<xs:enumeration value="11001" />
+							<xs:enumeration value="11002" />
+							<xs:enumeration value="11003" />
+							<xs:enumeration value="11004" />
+							<xs:enumeration value="11005" />
+							<xs:enumeration value="11006" />
+							<xs:enumeration value="11007" />
+							<xs:enumeration value="11008" />
+							<xs:enumeration value="11009" />
+							<xs:enumeration value="11010" />
+							<xs:enumeration value="11011" />
+							<xs:enumeration value="11012" />
+							<xs:enumeration value="11013" />
+							<xs:enumeration value="11014" />
+							<xs:enumeration value="11015" />
+							<xs:enumeration value="12001" />
+							<xs:enumeration value="12002" />
+							<xs:enumeration value="12003" />
+							<xs:enumeration value="12004" />
+							<xs:enumeration value="12005" />
+							<xs:enumeration value="12006" />
+							<xs:enumeration value="13001" />
+							<xs:enumeration value="13002" />
+							<xs:enumeration value="13003" />
+							<xs:enumeration value="13004" />
+							<xs:enumeration value="13005" />
+							<xs:enumeration value="13006" />
+							<xs:enumeration value="13007" />
+							<xs:enumeration value="13008" />
+							<xs:enumeration value="13009" />
+							<xs:enumeration value="13010" />
+							<xs:enumeration value="13011" />
+							<xs:enumeration value="13012" />
+							<xs:enumeration value="13013" />
+							<xs:enumeration value="13014" />
+							<xs:enumeration value="13015" />
+							<xs:enumeration value="13016" />
+							<xs:enumeration value="13017" />
+							<xs:enumeration value="13018" />
+							<xs:enumeration value="14001" />
+							<xs:enumeration value="14002" />
+							<xs:enumeration value="14003" />
+							<xs:enumeration value="14004" />
+							<xs:enumeration value="14005" />
+							<xs:enumeration value="14006" />
+							<xs:enumeration value="14007" />
+							<xs:enumeration value="14008" />
+							<xs:enumeration value="14009" />
+							<xs:enumeration value="14010" />
+							<xs:enumeration value="15001" />
+							<xs:enumeration value="15002" />
+							<xs:enumeration value="15003" />
+							<xs:enumeration value="16001" />
+							<xs:enumeration value="16002" />
+							<xs:enumeration value="16003" />
+							<xs:enumeration value="16004" />
+							<xs:enumeration value="16005" />
+							<xs:enumeration value="16006" />
+							<xs:enumeration value="16007" />
+							<xs:enumeration value="16008" />
+							<xs:enumeration value="16009" />
+							<xs:enumeration value="16010" />
+							<xs:enumeration value="16011" />
+							<xs:enumeration value="16012" />
+							<xs:enumeration value="16013" />
+							<xs:enumeration value="16014" />
+							<xs:enumeration value="16015" />
+							<xs:enumeration value="16016" />
+							<xs:enumeration value="16017" />
+							<xs:enumeration value="16018" />
+							<xs:enumeration value="16019" />
+							<xs:enumeration value="17001" />
+							<xs:enumeration value="17002" />
+							<xs:enumeration value="17003" />
+							<xs:enumeration value="17004" />
+							<xs:enumeration value="17005" />
+							<xs:enumeration value="17006" />
+							<xs:enumeration value="17007" />
+							<xs:enumeration value="18001" />
+							<xs:enumeration value="18002" />
+							<xs:enumeration value="18003" />
+							<xs:enumeration value="18004" />
+							<xs:enumeration value="18005" />
+							<xs:enumeration value="18006" />
+							<xs:enumeration value="18007" />
+							<xs:enumeration value="18008" />
+							<xs:enumeration value="18009" />
+							<xs:enumeration value="18010" />
+							<xs:enumeration value="18011" />
+							<xs:enumeration value="18012" />
+							<xs:enumeration value="18013" />
+							<xs:enumeration value="18014" />
+							<xs:enumeration value="18015" />
+							<xs:enumeration value="18016" />
+							<xs:enumeration value="18017" />
+							<xs:enumeration value="19001" />
+							<xs:enumeration value="19002" />
+							<xs:enumeration value="19003" />
+							<xs:enumeration value="19004" />
+							<xs:enumeration value="19005" />
+							<xs:enumeration value="19006" />
+							<xs:enumeration value="19007" />
+							<xs:enumeration value="19008" />
+							<xs:enumeration value="19009" />
+							<xs:enumeration value="20001" />
+							<xs:enumeration value="20002" />
+							<xs:enumeration value="20003" />
+							<xs:enumeration value="20004" />
+							<xs:enumeration value="20005" />
+							<xs:enumeration value="20006" />
+							<xs:enumeration value="20007" />
+							<xs:enumeration value="20008" />
+							<xs:enumeration value="20009" />
+							<xs:enumeration value="20010" />
+							<xs:enumeration value="20011" />
+							<xs:enumeration value="20012" />
+							<xs:enumeration value="20013" />
+							<xs:enumeration value="20014" />
+							<xs:enumeration value="20015" />
+							<xs:enumeration value="20016" />
+							<xs:enumeration value="20017" />
+							<xs:enumeration value="20018" />
+							<xs:enumeration value="20019" />
+							<xs:enumeration value="20020" />
+							<xs:enumeration value="20021" />
+							<xs:enumeration value="20022" />
+							<xs:enumeration value="20023" />
+							<xs:enumeration value="20024" />
+							<xs:enumeration value="21001" />
+							<xs:enumeration value="21002" />
+							<xs:enumeration value="21003" />
+							<xs:enumeration value="21004" />
+							<xs:enumeration value="21005" />
+							<xs:enumeration value="21006" />
+							<xs:enumeration value="21007" />
+							<xs:enumeration value="21008" />
+							<xs:enumeration value="22001" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="Description" minOccurs="0">
+					<xs:simpleType>
+						<xs:restriction base="nonEmptyString">
+							<xs:maxLength value="75" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+		<xs:complexType name="NatOfBus44AD">
+			<xs:sequence>
+				<xs:element name="NameOfBusiness">
+					<xs:simpleType>
+						<xs:restriction base="nonEmptyString">
+							<xs:maxLength value="75" />
+							<xs:minLength value="1" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="CodeAD">
+					<xs:annotation>
+						<xs:documentation>
+							01001 - Growing and manufacturing of tea  
+							01002 - Growing and manufacturing of coffee 
+							01003 - Growing and manufacturing of rubber 
+							01004 - Market gardening and horticulture specialties 
+							01005 - Raising of silk worms and production of silk 
+							01006 - Raising of bees and production of honey 
+							01007 - Raising of poultry and production of eggs  
+							01008 - Rearing of sheep and production of wool 
+							01009 - Rearing of animals and production of animal products 
+							01010 - Agricultural and animal husbandry services  
+							01011 - Soil conservation, soil testing and soil desalination services 
+							01012 - Hunting, trapping and game propagation services 
+							01013 - Growing of timber, plantation, operation of tree nurseries and conserving of forest 
+							01014 - Gathering of tendu leaves 
+							01015 - Gathering of other wild growing materials  
+							01016 - Forestry service activities, timber cruising, afforestation and reforestation   
+							01017 - Logging service activities, transport of logs within the forest 
+							01018 - Other agriculture, animal husbandry or forestry activity n.e.c 
+							02001 - Fishing on commercial basis in inland waters 
+							02002 - Fishing on commercial basis in ocean and coastal areas 
+							02003 - Fish farming 
+							02004 - Gathering of marine materials such as natural pearls, sponges, coral etc.   
+							02005 - Services related to marine and fresh water fisheries, fish hatcheries and fish farms  
+							02006 - Other Fish farming activity n.e.c 
+							03001 - Mining and agglomeration of hard coal 
+							03002 - Mining and agglomeration of lignite 
+							03003 - Extraction and agglomeration of peat 
+							03004 - Extraction of crude petroleum and natural gas 
+							03005 - Service activities incidental to oil and gas extraction excluding surveying 
+							03006 - Mining of uranium and thorium ores 
+							03007 - Mining of iron ores 
+							03008 - Mining of non-ferrous metal ores, except uranium and thorium ores 
+							03009 - Mining of gemstones 
+							03010 - Mining of chemical and fertilizer minerals 
+							03011 - Mining of quarrying of abrasive materials 
+							03012 - Mining of mica, graphite and asbestos 
+							03013 - Quarrying of stones (marble/granite/dolomite), sand and clay 
+							03014 - Other mining and quarrying 
+							03015 - Mining and production of salt 
+							03016 - Other mining and quarrying n.e.c 
+							04001 - Production, processing and preservation of meat and meat products 
+							04002 - Production, processing and preservation of fish and fish products 
+							04003 - Manufacture of vegetable oil, animal oil and fats 
+							04004 - Processing of fruits, vegetables and edible nuts 
+							04005 - Manufacture of dairy products 
+							04006 - Manufacture of sugar  
+							04007 - Manufacture of cocoa, chocolates and sugar confectionery 
+							04008 - Flour milling 
+							04009 - Rice milling 
+							04010 - Dal milling 
+							04011 - Manufacture of other grain mill products 
+							04012 - Manufacture of bakery products 
+							04013 - Manufacture of starch products 
+							04014 - Manufacture of animal feeds 
+							04015 - Manufacture of other food products 
+							04016 - Manufacturing of wines  
+							04017 - Manufacture of beer 
+							04018 - Manufacture of malt liquors  
+							04019 - Distilling and blending of spirits, production of ethyl alcohol 
+							04020 - Manufacture of mineral water 
+							04021 - Manufacture of soft drinks 
+							04022 - Manufacture of other non-alcoholic beverages 
+							04023 - Manufacture of tobacco products 
+							04024 - Manufacture of textiles (other than by handloom)   
+							04025 - Manufacture of textiles using handlooms (khadi) 
+							04026 - Manufacture of carpet, rugs, blankets, shawls etc. (other than by hand)  
+							04027 - Manufacture of carpet, rugs, blankets, shawls etc. by hand 
+							04028 - Manufacture of wearing apparel  
+							04029 - Tanning and dressing of leather 
+							04030 - Manufacture of luggage, handbags and the like saddler and harness 
+							04031 - Manufacture of footwear 
+							04032 - Manufacture of wood and wood products, cork, straw and plaiting material 
+							04033 - Manufacture of paper and paper products 
+							04034 - Publishing, printing and reproduction of recorded media 
+							04035 - Manufacture of coke oven products 
+							04036 - Manufacture of refined petroleum products 
+							04037 - Processing of nuclear fuel 
+							04038 - Manufacture of fertilizers and nitrogen compounds 
+							04039 - Manufacture of plastics in primary forms and of synthetic rubber 
+							04040 - Manufacture of paints, varnishes and similar coatings 
+							04041 - Manufacture of pharmaceuticals, medicinal chemicals and botanical products 
+							04042 - Manufacture of soap and detergents 
+							04043 - Manufacture of other chemical products 
+							04044 - Manufacture of man-made fibers 
+							04045 - Manufacture of rubber products 
+							04046 - Manufacture of plastic products 
+							04047 - Manufacture of glass and glass products  
+							04048 - Manufacture of cement, lime and plaster 
+							04049 - Manufacture of articles of concrete, cement and plaster 
+							04050 - Manufacture of Bricks 
+							04051 - Manufacture of other clay and ceramic products 
+							04052 - Manufacture of other non-metallic mineral products 
+							04053 - Manufacture of pig iron, sponge iron, Direct Reduced Iron etc.  
+							04054 - Manufacture of Ferro alloys 
+							04055 - Manufacture of Ingots, billets, blooms and slabs etc.  
+							04056 - Manufacture of steel products  
+							04057 - Manufacture of basic precious and non-ferrous metals 
+							04058 - Manufacture of non-metallic mineral products 
+							04059 - Casting of metals 
+							04060 - Manufacture of fabricated metal products 
+							04061 - Manufacture of engines and turbines 
+							04062 - Manufacture of pumps and compressors 
+							04063 - Manufacture of bearings and gears 
+							04064 - Manufacture of ovens and furnaces 
+							04065 - Manufacture of lifting and handling equipment 
+							04066 - Manufacture of other general purpose machinery 
+							04067 - Manufacture of agricultural and forestry machinery 
+							04068 - Manufacture of Machine Tools 
+							04069 - Manufacture of machinery for metallurgy 
+							04070 - Manufacture of machinery for mining, quarrying and constructions 
+							04071 - Manufacture of machinery for processing of food and  beverages  
+							04072 - Manufacture of machinery for leather and textile 
+							04073 - Manufacture of weapons and ammunition 
+							04074 - Manufacture of other special purpose machinery 
+							04075 - Manufacture of domestic appliances 
+							04076 - Manufacture of office, accounting and computing machinery 
+							04077 - Manufacture of electrical machinery and apparatus  
+							04078 - Manufacture of Radio, Television, communication equipment and apparatus 
+							04079 - Manufacture of medical and surgical equipment 
+							04080 - Manufacture of industrial process control equipment 
+							04081 - Manufacture of instruments and appliances for measurements and navigation 
+							04082 - Manufacture of optical instruments 
+							04083 - Manufacture of watches and clocks 
+							04084 - Manufacture of motor vehicles 
+							04085 - Manufacture of body of motor vehicles 
+							04086 - Manufacture of parts and accessories of motor vehicles and  engines 
+							04087 - Building and repair of ships and boats 
+							04088 - Manufacture of railway locomotive and rolling stocks 
+							04089 - Manufacture of aircraft and spacecraft 
+							04090 - Manufacture of bicycles 
+							04091 - Manufacture of other transport equipment 
+							04092 - Manufacture of furniture 
+							04093 - Manufacture of jewellery 
+							04094 - Manufacture of sports goods 
+							04095 - Manufacture of musical instruments 
+							04096 - Manufacture of games and toys 
+							04097 - Other manufacturing n.e.c. 
+							04098 - Recycling of metal waste and scrap 
+							04099 - Recycling of non- metal waste and scrap 
+							05001 - Production, collection and distribution of electricity 
+							05002 - Manufacture and distribution of gas 
+							05003 - Collection, purification and distribution of water 
+							05004 - Other essential commodity service  n.e.c 
+							06001 - Site preparation works 
+							06002 - Building of complete constructions or parts- civil contractors 
+							06003 - Building installation 
+							06004 - Building completion 
+							06005 - Construction and maintenance of roads, rails, bridges, tunnels, ports, harbour, runways etc.   
+							06006 - Construction and maintenance of power plants 
+							06007 - Construction  and maintenance of industrial plants 
+							06008 - Construction  and maintenance of power transmission and telecommunication lines  
+							06009 - Construction of water ways and water reservoirs 
+							06010 - Other construction activity n.e.c. 
+							07001 - Purchase, sale and letting of leased buildings  (residential and non-residential) 
+							07002 - Operating of real estate of self-owned buildings (residential and non-residential) 
+							07003 - Developing and sub-dividing real estate into lots 
+							07004 - Real estate activities on a fee or contract basis 
+							07005 - Other real estate/renting services n.e.c 
+							08001 - Renting of land transport equipment 
+							08002 - Renting of water transport equipment 
+							08003 - Renting of air transport equipment 
+							08004 - Renting of agricultural machinery and equipment 
+							08005 - Renting of construction and civil engineering machinery 
+							08006 - Renting of office machinery and equipment 
+							08007 - Renting of other machinery and equipment n.e.c.  
+							08008 - Renting of personal and household goods n.e.c.  
+							08009 - Renting of other machinery n.e.c. 
+							09001 - Wholesale and retail sale of motor vehicles 
+							09002 - Repair and maintenance of motor vehicles 
+							09003 - Sale of motor parts and accessories- wholesale and retail 
+							09004 - Retail sale of automotive fuel 
+							09006 - Wholesale of agricultural raw material  
+							09007 - Wholesale of food and beverages and tobacco 
+							09008 - Wholesale of household goods 
+							09009 - Wholesale of metals and metal ores 
+							09010 - Wholesale of household goods 
+							09011 - Wholesale of construction material 
+							09012 - Wholesale of hardware and sanitary fittings 
+							09013 - Wholesale of cotton and jute 
+							09014 - Wholesale of raw wool and raw silk 
+							09015 - Wholesale of other textile fibres 
+							09016 - Wholesale of industrial chemicals 
+							09017 - Wholesale of fertilizers and pesticides 
+							09018 - Wholesale of electronic parts and equipment 
+							09019 - Wholesale of other machinery, equipment and supplies 
+							09020 - Wholesale of waste, scrap and materials for re-cycling 
+							09021 - Retail sale of food, beverages and tobacco in specialized stores 
+							09022 - Retail sale of other goods in specialized stores 
+							09023 - Retail sale in non-specialized stores 
+							09024 - Retail sale of textiles, apparel, footwear, leather goods 
+							09025 - Retail sale of other household appliances 
+							09026 - Retail sale of hardware, paint and glass 
+							09027 - Wholesale of other products n.e.c 
+							09028 - Retail sale of other products n.e.c 
+							10001 - Hotels – Star rated  
+							10002 - Hotels – Non-star rated 
+							10003 - Motels, Inns and Dharmshalas 
+							10004 - Guest houses and circuit houses 
+							10005 - Dormitories and hostels at educational institutions 
+							10006 - Short stay accommodations n.e.c. 
+							10007 - Restaurants – with bars  
+							10008 - Restaurants – without bars 
+							10009 - Canteens 
+							10010 - Independent caterers 
+							10011 - Casinos and other games of chance 
+							10012 - Other hospitality services n.e.c. 
+							11001 - Travel agencies and tour operators 
+							11002 - Packers and movers 
+							11003 - Passenger land transport 
+							11004 - Air transport 
+							11005 - Transport by urban/sub-urban railways 
+							11006 - Inland water transport 
+							11007 - Sea and coastal water transport 
+							11008 - Freight transport by road 
+							11009 - Freight transport by railways 
+							11010 - Forwarding of freight 
+							11011 - Receiving and acceptance of freight 
+							11012 - Cargo handling 
+							11013 - Storage and warehousing 
+							11014 - Transport via pipelines (transport of gases, liquids, slurry and other commodities) 
+							11015 - Other Transport and Logistics services n.e.c 
+							12001 - Post and courier activities  
+							12002 - Basic telecom services 
+							12003 - Value added telecom services 
+							12004 - Maintenance of telecom network 
+							12005 - Activities of the cable operators 
+							12006 - Other Post and Telecommunication services n.e.c 
+							13001 - Commercial banks, saving banks and discount houses 
+							13002 - Specialised institutions granting credit 
+							13003 - Financial leasing 
+							13004 - Hire-purchase financing 
+							13005 - Housing finance activities 
+							13006 - Commercial loan activities 
+							13007 - Credit cards 
+							13008 - Mutual funds 
+							13009 - Chit fund  
+							13010 - Investment activities 
+							13011 - Life insurance 
+							13012 - Pension funding 
+							13013 - Non-life insurance 
+							13014 - Administration of financial markets 
+							13015 - Stock brokers, sub-brokers and related activities 
+							13016 - Financial advisers, mortgage advisers and brokers 
+							13017 - Foreign exchange services 
+							13018 - Other financial intermediation services n.e.c. 
+							14007 - Cyber café 
+							14009 - Computer training and educational institutes 
+							14010 - Other computation related services n.e.c. 
+							15001 - Natural sciences and engineering 
+							15002 - Social sciences and humanities 
+							15003 - Other Research and Development activities n.e.c. 
+							16006 - Advertising 
+							16009 - Photography  
+							16010 - Auctioneers 
+							16011 - Business brokerage  
+							16012 - Market research and public opinion polling 
+							16013 - Business and management consultancy activities 
+							16014 - Labour recruitment and provision of personnel 
+							16015 - Investigation and security services 
+							16016 - Building-cleaning and industrial cleaning activities 
+							16017 - Packaging activities 
+							16019 - Other professional services n.e.c. 
+							17001 - Primary education 
+							17002 - Secondary/ senior secondary education 
+							17003 - Technical and vocational secondary/ senior secondary education 
+							17004 - Higher education 
+							17005 - Education by correspondence 
+							17006 - Coaching centres and tuitions  
+							17007 - Other education services n.e.c. 
+							18006 - Independent blood banks 
+							18007 - Medical transcription  
+							18008 - Independent ambulance services 
+							18009 - Medical suppliers, agencies and stores  
+							19001 - Social work activities with accommodation (orphanages and old age homes) 
+							19002 - Social work activities without accommodation (Creches) 
+							19003 - Industry associations, chambers of commerce 
+							19004 - Professional organisations 
+							19005 - Trade unions 
+							19006 - Religious organizations 
+							19007 - Political organisations 
+							19008 - Other membership organisations n.e.c. (rotary clubs, book clubs and philatelic clubs) 
+							19009 - Other Social or community service n.e.c 
+							20001 - Motion picture production 
+							20002 - Film distribution 
+							20003 - Film laboratories 
+							20004 - Television channel productions 
+							20005 - Television channels broadcast 
+							20006 - Video production and distribution 
+							20007 - Sound recording studios 
+							20008 - Radio - recording and distribution 
+							20009 - Stage production and related activities 
+							20013 - Circuses and race tracks 
+							20014 - Video Parlours 
+							20015 - News agency activities 
+							20016 - Library and archives activities 
+							20017 - Museum activities 
+							20018 - Preservation of historical sites and buildings 
+							20019 - Botanical and zoological gardens  
+							20020 - Operation and maintenance of sports facilities 
+							20021 - Activities of sports and game schools 
+							20022 - Organisation and operation of indoor/outdoor sports and promotion and production of sporting events 
+							20023 - Other sporting activities n.e.c. 
+							20024 - Other recreational activities n.e.c. 
+							21001 - Hair dressing and other beauty treatment 
+							21002 - Funeral and related activities 
+							21003 - Marriage bureaus 
+							21004 - Pet care services  
+							21005 - Sauna and steam baths, massage salons etc. 
+							21006 - Astrological and spiritualists’ activities 
+							21007 - Private households as employers of domestic staff 
+							21008 - Other services n.e.c. 
+							22001 - Extra territorial organisations and bodies (IMF, World Bank,European Commission etc.) 
+						</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="nonEmptyString">
+							<xs:enumeration value="01001" />
+							<xs:enumeration value="01002" />
+							<xs:enumeration value="01003" />
+							<xs:enumeration value="01004" />
+							<xs:enumeration value="01005" />
+							<xs:enumeration value="01006" />
+							<xs:enumeration value="01007" />
+							<xs:enumeration value="01008" />
+							<xs:enumeration value="01009" />
+							<xs:enumeration value="01010" />
+							<xs:enumeration value="01011" />
+							<xs:enumeration value="01012" />
+							<xs:enumeration value="01013" />
+							<xs:enumeration value="01014" />
+							<xs:enumeration value="01015" />
+							<xs:enumeration value="01016" />
+							<xs:enumeration value="01017" />
+							<xs:enumeration value="01018" />
+							<xs:enumeration value="02001" />
+							<xs:enumeration value="02002" />
+							<xs:enumeration value="02003" />
+							<xs:enumeration value="02004" />
+							<xs:enumeration value="02005" />
+							<xs:enumeration value="02006" />
+							<xs:enumeration value="03001" />
+							<xs:enumeration value="03002" />
+							<xs:enumeration value="03003" />
+							<xs:enumeration value="03004" />
+							<xs:enumeration value="03005" />
+							<xs:enumeration value="03006" />
+							<xs:enumeration value="03007" />
+							<xs:enumeration value="03008" />
+							<xs:enumeration value="03009" />
+							<xs:enumeration value="03010" />
+							<xs:enumeration value="03011" />
+							<xs:enumeration value="03012" />
+							<xs:enumeration value="03013" />
+							<xs:enumeration value="03014" />
+							<xs:enumeration value="03015" />
+							<xs:enumeration value="03016" />
+							<xs:enumeration value="04001" />
+							<xs:enumeration value="04002" />
+							<xs:enumeration value="04003" />
+							<xs:enumeration value="04004" />
+							<xs:enumeration value="04005" />
+							<xs:enumeration value="04006" />
+							<xs:enumeration value="04007" />
+							<xs:enumeration value="04008" />
+							<xs:enumeration value="04009" />
+							<xs:enumeration value="04010" />
+							<xs:enumeration value="04011" />
+							<xs:enumeration value="04012" />
+							<xs:enumeration value="04013" />
+							<xs:enumeration value="04014" />
+							<xs:enumeration value="04015" />
+							<xs:enumeration value="04016" />
+							<xs:enumeration value="04017" />
+							<xs:enumeration value="04018" />
+							<xs:enumeration value="04019" />
+							<xs:enumeration value="04020" />
+							<xs:enumeration value="04021" />
+							<xs:enumeration value="04022" />
+							<xs:enumeration value="04023" />
+							<xs:enumeration value="04024" />
+							<xs:enumeration value="04025" />
+							<xs:enumeration value="04026" />
+							<xs:enumeration value="04027" />
+							<xs:enumeration value="04028" />
+							<xs:enumeration value="04029" />
+							<xs:enumeration value="04030" />
+							<xs:enumeration value="04031" />
+							<xs:enumeration value="04032" />
+							<xs:enumeration value="04033" />
+							<xs:enumeration value="04034" />
+							<xs:enumeration value="04035" />
+							<xs:enumeration value="04036" />
+							<xs:enumeration value="04037" />
+							<xs:enumeration value="04038" />
+							<xs:enumeration value="04039" />
+							<xs:enumeration value="04040" />
+							<xs:enumeration value="04041" />
+							<xs:enumeration value="04042" />
+							<xs:enumeration value="04043" />
+							<xs:enumeration value="04044" />
+							<xs:enumeration value="04045" />
+							<xs:enumeration value="04046" />
+							<xs:enumeration value="04047" />
+							<xs:enumeration value="04048" />
+							<xs:enumeration value="04049" />
+							<xs:enumeration value="04050" />
+							<xs:enumeration value="04051" />
+							<xs:enumeration value="04052" />
+							<xs:enumeration value="04053" />
+							<xs:enumeration value="04054" />
+							<xs:enumeration value="04055" />
+							<xs:enumeration value="04056" />
+							<xs:enumeration value="04057" />
+							<xs:enumeration value="04058" />
+							<xs:enumeration value="04059" />
+							<xs:enumeration value="04060" />
+							<xs:enumeration value="04061" />
+							<xs:enumeration value="04062" />
+							<xs:enumeration value="04063" />
+							<xs:enumeration value="04064" />
+							<xs:enumeration value="04065" />
+							<xs:enumeration value="04066" />
+							<xs:enumeration value="04067" />
+							<xs:enumeration value="04068" />
+							<xs:enumeration value="04069" />
+							<xs:enumeration value="04070" />
+							<xs:enumeration value="04071" />
+							<xs:enumeration value="04072" />
+							<xs:enumeration value="04073" />
+							<xs:enumeration value="04074" />
+							<xs:enumeration value="04075" />
+							<xs:enumeration value="04076" />
+							<xs:enumeration value="04077" />
+							<xs:enumeration value="04078" />
+							<xs:enumeration value="04079" />
+							<xs:enumeration value="04080" />
+							<xs:enumeration value="04081" />
+							<xs:enumeration value="04082" />
+							<xs:enumeration value="04083" />
+							<xs:enumeration value="04084" />
+							<xs:enumeration value="04085" />
+							<xs:enumeration value="04086" />
+							<xs:enumeration value="04087" />
+							<xs:enumeration value="04088" />
+							<xs:enumeration value="04089" />
+							<xs:enumeration value="04090" />
+							<xs:enumeration value="04091" />
+							<xs:enumeration value="04092" />
+							<xs:enumeration value="04093" />
+							<xs:enumeration value="04094" />
+							<xs:enumeration value="04095" />
+							<xs:enumeration value="04096" />
+							<xs:enumeration value="04097" />
+							<xs:enumeration value="04098" />
+							<xs:enumeration value="04099" />
+							<xs:enumeration value="05001" />
+							<xs:enumeration value="05002" />
+							<xs:enumeration value="05003" />
+							<xs:enumeration value="05004" />
+							<xs:enumeration value="06001" />
+							<xs:enumeration value="06002" />
+							<xs:enumeration value="06003" />
+							<xs:enumeration value="06004" />
+							<xs:enumeration value="06005" />
+							<xs:enumeration value="06006" />
+							<xs:enumeration value="06007" />
+							<xs:enumeration value="06008" />
+							<xs:enumeration value="06009" />
+							<xs:enumeration value="06010" />
+							<xs:enumeration value="07001" />
+							<xs:enumeration value="07002" />
+							<xs:enumeration value="07003" />
+							<xs:enumeration value="07004" />
+							<xs:enumeration value="07005" />
+							<xs:enumeration value="08001" />
+							<xs:enumeration value="08002" />
+							<xs:enumeration value="08003" />
+							<xs:enumeration value="08004" />
+							<xs:enumeration value="08005" />
+							<xs:enumeration value="08006" />
+							<xs:enumeration value="08007" />
+							<xs:enumeration value="08008" />
+							<xs:enumeration value="08009" />
+							<xs:enumeration value="09001" />
+							<xs:enumeration value="09002" />
+							<xs:enumeration value="09003" />
+							<xs:enumeration value="09004" />
+							<xs:enumeration value="09006" />
+							<xs:enumeration value="09007" />
+							<xs:enumeration value="09008" />
+							<xs:enumeration value="09009" />
+							<xs:enumeration value="09010" />
+							<xs:enumeration value="09011" />
+							<xs:enumeration value="09012" />
+							<xs:enumeration value="09013" />
+							<xs:enumeration value="09014" />
+							<xs:enumeration value="09015" />
+							<xs:enumeration value="09016" />
+							<xs:enumeration value="09017" />
+							<xs:enumeration value="09018" />
+							<xs:enumeration value="09019" />
+							<xs:enumeration value="09020" />
+							<xs:enumeration value="09021" />
+							<xs:enumeration value="09022" />
+							<xs:enumeration value="09023" />
+							<xs:enumeration value="09024" />
+							<xs:enumeration value="09025" />
+							<xs:enumeration value="09026" />
+							<xs:enumeration value="09027" />
+							<xs:enumeration value="09028" />
+							<xs:enumeration value="10001" />
+							<xs:enumeration value="10002" />
+							<xs:enumeration value="10003" />
+							<xs:enumeration value="10004" />
+							<xs:enumeration value="10005" />
+							<xs:enumeration value="10006" />
+							<xs:enumeration value="10007" />
+							<xs:enumeration value="10008" />
+							<xs:enumeration value="10009" />
+							<xs:enumeration value="10010" />
+							<xs:enumeration value="10011" />
+							<xs:enumeration value="10012" />
+							<xs:enumeration value="11001" />
+							<xs:enumeration value="11002" />
+							<xs:enumeration value="11003" />
+							<xs:enumeration value="11004" />
+							<xs:enumeration value="11005" />
+							<xs:enumeration value="11006" />
+							<xs:enumeration value="11007" />
+							<xs:enumeration value="11008" />
+							<xs:enumeration value="11009" />
+							<xs:enumeration value="11010" />
+							<xs:enumeration value="11011" />
+							<xs:enumeration value="11012" />
+							<xs:enumeration value="11013" />
+							<xs:enumeration value="11014" />
+							<xs:enumeration value="11015" />
+							<xs:enumeration value="12001" />
+							<xs:enumeration value="12002" />
+							<xs:enumeration value="12003" />
+							<xs:enumeration value="12004" />
+							<xs:enumeration value="12005" />
+							<xs:enumeration value="12006" />
+							<xs:enumeration value="13001" />
+							<xs:enumeration value="13002" />
+							<xs:enumeration value="13003" />
+							<xs:enumeration value="13004" />
+							<xs:enumeration value="13005" />
+							<xs:enumeration value="13006" />
+							<xs:enumeration value="13007" />
+							<xs:enumeration value="13008" />
+							<xs:enumeration value="13009" />
+							<xs:enumeration value="13010" />
+							<xs:enumeration value="13011" />
+							<xs:enumeration value="13012" />
+							<xs:enumeration value="13013" />
+							<xs:enumeration value="13014" />
+							<xs:enumeration value="13015" />
+							<xs:enumeration value="13016" />
+							<xs:enumeration value="13017" />
+							<xs:enumeration value="13018" />
+							<xs:enumeration value="14007" />
+							<xs:enumeration value="14009" />
+							<xs:enumeration value="14010" />
+							<xs:enumeration value="15001" />
+							<xs:enumeration value="15002" />
+							<xs:enumeration value="15003" />
+							<xs:enumeration value="16006" />
+							<xs:enumeration value="16009" />
+							<xs:enumeration value="16010" />
+							<xs:enumeration value="16011" />
+							<xs:enumeration value="16012" />
+							<xs:enumeration value="16013" />
+							<xs:enumeration value="16014" />
+							<xs:enumeration value="16015" />
+							<xs:enumeration value="16016" />
+							<xs:enumeration value="16017" />
+							<xs:enumeration value="16019" />
+							<xs:enumeration value="17001" />
+							<xs:enumeration value="17002" />
+							<xs:enumeration value="17003" />
+							<xs:enumeration value="17004" />
+							<xs:enumeration value="17005" />
+							<xs:enumeration value="17006" />
+							<xs:enumeration value="17007" />
+							<xs:enumeration value="18006" />
+							<xs:enumeration value="18007" />
+							<xs:enumeration value="18008" />
+							<xs:enumeration value="18009" />
+							<xs:enumeration value="19001" />
+							<xs:enumeration value="19002" />
+							<xs:enumeration value="19003" />
+							<xs:enumeration value="19004" />
+							<xs:enumeration value="19005" />
+							<xs:enumeration value="19006" />
+							<xs:enumeration value="19007" />
+							<xs:enumeration value="19008" />
+							<xs:enumeration value="19009" />
+							<xs:enumeration value="20001" />
+							<xs:enumeration value="20002" />
+							<xs:enumeration value="20003" />
+							<xs:enumeration value="20004" />
+							<xs:enumeration value="20005" />
+							<xs:enumeration value="20006" />
+							<xs:enumeration value="20007" />
+							<xs:enumeration value="20008" />
+							<xs:enumeration value="20009" />
+							<xs:enumeration value="20013" />
+							<xs:enumeration value="20014" />
+							<xs:enumeration value="20015" />
+							<xs:enumeration value="20016" />
+							<xs:enumeration value="20017" />
+							<xs:enumeration value="20018" />
+							<xs:enumeration value="20019" />
+							<xs:enumeration value="20020" />
+							<xs:enumeration value="20021" />
+							<xs:enumeration value="20022" />
+							<xs:enumeration value="20023" />
+							<xs:enumeration value="20024" />
+							<xs:enumeration value="21001" />
+							<xs:enumeration value="21002" />
+							<xs:enumeration value="21003" />
+							<xs:enumeration value="21004" />
+							<xs:enumeration value="21005" />
+							<xs:enumeration value="21006" />
+							<xs:enumeration value="21007" />
+							<xs:enumeration value="21008" />
+							<xs:enumeration value="22001" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="Description" minOccurs="0">
+					<xs:simpleType>
+						<xs:restriction base="nonEmptyString">
+							<xs:maxLength value="75" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	 <xs:element name="ScheduleBP">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="NatOfBus44AD" type="NatOfBus44AD" minOccurs="0" maxOccurs="3"/>
+				<xs:element ref="PersumptiveInc44AD" minOccurs="0"/>
+				<xs:element name="NatOfBus44ADA" type="NatOfBus44ADA" minOccurs="0" maxOccurs="3"/>
+				<xs:element ref="PersumptiveInc44ADA" minOccurs="0" />
+				<xs:element name="NatOfBus44AE" type="NatOfBus44AE" minOccurs="0" maxOccurs="3"/>
+				<xs:element ref="GoodsDtlsUs44AE" minOccurs="0" maxOccurs="10"/>
+				<xs:element ref="PersumptiveInc44AE" minOccurs="0" />
+				<xs:element ref="TurnoverGrsRcptForGSTIN" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="TotalTurnoverGrsRcptGSTIN" minOccurs="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:totalDigits value="14" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element ref="FinanclPartclrOfBusiness" minOccurs="0" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="TurnoverGrsRcptForGSTIN">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="GSTINNo" minOccurs="0">
+					<xs:simpleType>
+						<xs:restriction base="nonEmptyString">
+							<xs:pattern value="[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z][0-9A-Z]{3}" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="AmtTurnGrossRcptGSTIN" minOccurs="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:totalDigits value="14" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ScheduleIT">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="TaxPayment" maxOccurs="unbounded" />
+				<xs:element name="TotalTaxPayments" default="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:totalDigits value="14" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ScheduleTCS">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="TCS" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="EmployerOrDeductorOrCollectDetl">
+								<xs:annotation>
+									<xs:documentation>Collector Details</xs:documentation>
+								</xs:annotation>
+							</xs:element>
+							<xs:element name="Amtfrom26AS" default="0">
+								<xs:simpleType>
+									<xs:restriction base="xs:unsignedLong">
+										<xs:totalDigits value="14" />
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="TotalTCS" default="0">
+								<xs:simpleType>
+									<xs:restriction base="xs:unsignedLong">
+										<xs:totalDigits value="14" />
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="AmtTCSClaimedThisYear" default="0">
+								<xs:simpleType>
+									<xs:restriction base="xs:unsignedLong">
+										<xs:totalDigits value="14" />
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="TotalSchTCS" default="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:totalDigits value="14" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="TDSonSalaries">
+		<xs:annotation>
+			<xs:documentation>Salary TDS details</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="TDSonSalary" maxOccurs="unbounded" />
+				<xs:element name="TotalTDSonSalaries" default="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:totalDigits value="14" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="TDSonOthThanSals">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="TDSonOthThanSalDtls" maxOccurs="unbounded" />
+				<xs:element name="TotalTDSonOthThanSals" default="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:totalDigits value="14" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="TDSonOthThanSalDtls">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="TANOfDeductor">
+					<xs:simpleType>
+						<xs:restriction base="nonEmptyString">
+							<xs:pattern value="[A-Z]{4}[0-9]{5}[A-Z]" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="DeductedYr" minOccurs="0">
+					<xs:simpleType>
+						<xs:restriction base="nonEmptyString">
+							<xs:enumeration value="2017" />
+							<xs:enumeration value="2016" />
+							<xs:enumeration value="2015" />
+							<xs:enumeration value="2014" />
+							<xs:enumeration value="2013" />
+							<xs:enumeration value="2012" />
+							<xs:enumeration value="2011" />
+							<xs:enumeration value="2010" />
+							<xs:enumeration value="2009" />
+							<xs:enumeration value="2008" />
+							<xs:enumeration value="2007" />
+							<xs:enumeration value="2006" />
+							<xs:enumeration value="2005" />
+							<xs:enumeration value="2004" />
+							<xs:enumeration value="2003" />
+							<xs:enumeration value="2002" />
+							<xs:enumeration value="2001" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="BroughtFwdTDSAmt" minOccurs="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:totalDigits value="14" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="TDSDeducted" minOccurs="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:totalDigits value="14" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="TDSClaimed">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:totalDigits value="14" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="GrossAmount">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:totalDigits value="14" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="HeadOfIncome">
+					<xs:annotation>
+						<xs:documentation>
+							BP - Income from business and Profession
+							HP - Income from House Property
+							OS - Income from Other Source
+							EI - Exempt Income
+						</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:enumeration value="BP" />
+							<xs:enumeration value="HP" />
+							<xs:enumeration value="OS" />
+							<xs:enumeration value="EI" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="TDSCreditCarriedFwd">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:totalDigits value="14" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="AssesseeName">
+		<xs:annotation>
+			<xs:documentation>Assessee name with Surname mandatory.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="FirstName" minOccurs="0">
+					<xs:simpleType>
+						<xs:restriction base="nonEmptyString">
+							<xs:maxLength value="25" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="MiddleName" minOccurs="0">
+					<xs:simpleType>
+						<xs:restriction base="nonEmptyString">
+							<xs:maxLength value="25" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="SurNameOrOrgName">
+					<xs:annotation>
+						<xs:documentation>Enter Last or Sur name for Individual or HUF name here</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="nonEmptyString">
+							<xs:maxLength value="75" />
+							<xs:minLength value="1" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Address">
+		<xs:annotation>
+			<xs:documentation>Address of assessee</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="ResidenceNo">
+					<xs:simpleType>
+						<xs:restriction base="nonEmptyString">
+							<xs:maxLength value="50" />
+							<xs:minLength value="1" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="ResidenceName" minOccurs="0">
+					<xs:simpleType>
+						<xs:restriction base="nonEmptyString">
+							<xs:maxLength value="50" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="RoadOrStreet" minOccurs="0">
+					<xs:simpleType>
+						<xs:restriction base="nonEmptyString">
+							<xs:maxLength value="50" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="LocalityOrArea">
+					<xs:simpleType>
+						<xs:restriction base="nonEmptyString">
+							<xs:maxLength value="50" />
+							<xs:minLength value="1" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="CityOrTownOrDistrict">
+					<xs:simpleType>
+						<xs:restriction base="nonEmptyString">
+							<xs:minLength value="1" />
+							<xs:maxLength value="50" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element ref="StateCode"/>
+				<xs:element ref="CountryCode" />
+				<xs:element name="PinCode" minOccurs="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:pattern value="[1-9]{1}[0-9]{5}"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="ZipCode" minOccurs="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="8" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="Phone" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="STDcode" default="0">
+								<xs:simpleType>
+									<xs:restriction base="xs:unsignedLong">
+										<xs:totalDigits value="5" />
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="PhoneNo" default="0">
+								<xs:simpleType>
+									<xs:restriction base="xs:normalizedString">
+										<xs:pattern value="[0-9]{1,10}" />
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="CountryCodeMobile">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:pattern value="[0-9]{1,5}"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="MobileNo">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:pattern value="[1-9]{1}[0-9]{9}|[1-9]{1}[0-9]{4,9}" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="CountryCodeMobileNoSec" minOccurs="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:pattern value="[0-9]{1,5}"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="MobileNoSec" minOccurs="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:pattern value="[1-9]{1}[0-9]{9}|[1-9]{1}[0-9]{4,9}" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="EmailAddress">
+					<xs:annotation>
+						<xs:documentation>Email Id is required for receiving copy of ITR-V</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="nonEmptyString">
+							<xs:maxLength value="125" />
+							<xs:pattern value="([\.a-zA-Z0-9_\-])+@([a-zA-Z0-9_\-])+(([a-zA-Z0-9_\-])*\.([a-zA-Z0-9_\-])+)+" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="EmailAddressSec" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Alternate Email Id</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="nonEmptyString">
+							<xs:maxLength value="125" />
+							<xs:pattern value="([\.a-zA-Z0-9_\-])+@([a-zA-Z0-9_\-])+(([a-zA-Z0-9_\-])*\.([a-zA-Z0-9_\-])+)+" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>	
+	<xs:element name="CountryCode">
+	<xs:annotation>
+		<xs:documentation>
+			"93":"AFGHANISTAN",
+			"1001":"ÅLAND ISLANDS",
+			"355":"ALBANIA",
+			"213":"ALGERIA",
+			"684":"AMERICAN SAMOA",
+			"376":"ANDORRA",
+			"244":"ANGOLA",
+			"1264":"ANGUILLA",
+			"1010":"ANTARCTICA",
+			"1268":"ANTIGUA AND BARBUDA",
+			"54":"ARGENTINA",
+			"374":"ARMENIA",
+			"297":"ARUBA",
+			"61":"AUSTRALIA",
+			"43":"AUSTRIA",
+			"994":"AZERBAIJAN",
+			"1242":"BAHAMAS",
+			"973":"BAHRAIN",
+			"880":"BANGLADESH",
+			"1246":"BARBADOS",
+			"375":"BELARUS",
+			"32":"BELGIUM",
+			"501":"BELIZE",
+			"229":"BENIN",
+			"1441":"BERMUDA",
+			"975":"BHUTAN",
+			"591":"BOLIVIA (PLURINATIONAL STATE OF)",
+			"1002":"BONAIRE, SINT EUSTATIUS AND SABA",
+			"387":"BOSNIA AND HERZEGOVINA",
+			"267":"BOTSWANA",
+			"1003":"BOUVET ISLAND",
+			"55":"BRAZIL",
+			"1014":"BRITISH INDIAN OCEAN TERRITORY",
+			"673":"BRUNEI DARUSSALAM",
+			"359":"BULGARIA",
+			"226":" BURKINA FASO",
+			"257":"BURUNDI",
+			"238":"CABO VERDE",
+			"855":"CAMBODIA",
+			"237":"CAMEROON",
+			"1":"CANADA",
+			"1345":"CAYMAN ISLANDS",
+			"236":"CENTRAL AFRICAN REPUBLIC",
+			"235":"CHAD",
+			"56":"CHILE",
+			"86":"CHINA",
+			"9":"CHRISTMAS ISLAND",
+			"672":"COCOS (KEELING) ISLANDS",
+			"57":"COLOMBIA",
+			"270":"COMOROS",
+			"242":"CONGO",
+			"243":"CONGO (DEMOCRATIC REPUBLIC OF THE)",
+			"682":"COOK ISLANDS",
+			"506":"COSTA RICA",
+			"225":"CÔTE D'IVOIRE",
+			"385":"CROATIA",
+			"53":"CUBA",
+			"1015":"CURAÇAO",
+			"357":"CYPRUS",
+			"420":"CZECHIA",
+			"45":"DENMARK",
+			"253":"DJIBOUTI",
+			"1767":"DOMINICA",
+			"1809":"DOMINICAN REPUBLIC",
+			"593":"ECUADOR",
+			"20":"EGYPT",
+			"503":"EL SALVADOR",
+			"240":"EQUATORIAL GUINEA",
+			"291":"ERITREA",
+			"372":"ESTONIA",
+			"251":"ETHIOPIA",
+			"500":"FALKLAND ISLANDS (MALVINAS)",
+			"298":"FAROE ISLANDS",
+			"679":"FIJI",
+			"358":"FINLAND",
+			"33":"FRANCE",
+			"594":"FRENCH GUIANA",
+			"689":"FRENCH POLYNESIA",
+			"1004":"FRENCH SOUTHERN TERRITORIES",
+			"241":"GABON",
+			"220":"GAMBIA",
+			"995":"GEORGIA",
+			"49":"GERMANY",
+			"233":"GHANA",
+			"350":"GIBRALTAR",
+			"30":"GREECE",
+			"299":"GREENLAND",
+			"1473":"GRENADA",
+			"590":"GUADELOUPE",
+			"1671":"GUAM",
+			"502":"GUATEMALA",
+			"1481":"GUERNSEY",
+			"224":"GUINEA",
+			"245":"GUINEA-BISSAU",
+			"592":"GUYANA",
+			"509":"HAITI",
+			"1005":"HEARD ISLAND AND MCDONALD ISLANDS",
+			"6":"HOLY SEE",
+			"504":"HONDURAS",
+			"852":"HONG KONG",
+			"36":"HUNGARY",
+			"354":"ICELAND",
+			"91":"INDIA",
+			"62":"INDONESIA",
+			"98":"IRAN (ISLAMIC REPUBLIC OF)",
+			"964":"IRAQ",
+			"353":"IRELAND",
+			"1624":"ISLE OF MAN",
+			"972":"ISRAEL",
+			"5":"ITALY",
+			"1876":"JAMAICA",
+			"81":"JAPAN",
+			"1534":"JERSEY",
+			"962":"JORDAN",
+			"7":"KAZAKHSTAN",
+			"254":"KENYA",
+			"686":"KIRIBATI",
+			"850":"KOREA(DEMOCRATIC PEOPLE'S REPUBLIC OF)",
+			"82":"KOREA (REPUBLIC OF)",
+			"965":"KUWAIT",
+			"996":"KYRGYZSTAN",
+			"856":"LAO PEOPLE'S DEMOCRATIC REPUBLIC",
+			"371":"LATVIA",
+			"961":"LEBANON",
+			"266":"LESOTHO",
+			"231":"LIBERIA",
+			"218":"LIBYA",
+			"423":"LIECHTENSTEIN",
+			"370":"LITHUANIA",
+			"352":"LUXEMBOURG",
+			"853":"MACAO",
+			"389":"MACEDONIA(THE FORMER YUGOSLAV REPUBLIC OF)",
+			"261":"MADAGASCAR",
+			"256":"MALAWI",
+			"60":"MALAYSIA",
+			"960":"MALDIVES",
+			"223":"MALI",
+			"356":"MALTA",
+			"692":"MARSHALL ISLANDS",
+			"596":"MARTINIQUE",
+			"222":"MAURITANIA",
+			"230":"MAURITIUS",
+			"269":"MAYOTTE",
+			"52":"MEXICO",
+			"691":"MICRONESIA (FEDERATED STATES OF)",
+			"373":"MOLDOVA (REPUBLIC OF)",
+			"377":"MONACO",
+			"976":"MONGOLIA",
+			"382":"MONTENEGRO",
+			"1664":"MONTSERRAT",
+			"212":"MOROCCO",
+			"258":"MOZAMBIQUE",
+			"95":"MYANMAR",
+			"264":"NAMIBIA",
+			"674":"NAURU",
+			"977":"NEPAL",
+			"31":"NETHERLANDS",
+			"687":"NEW CALEDONIA",
+			"64":"NEW ZEALAND",
+			"505":"NICARAGUA",
+			"227":"NIGER",
+			"234":"NIGERIA",
+			"683":"NIUE",
+			"15":"NORFOLK ISLAND",
+			"1670":"NORTHERN MARIANA ISLANDS",
+			"47":"NORWAY",
+			"968":"OMAN",
+			"92":"PAKISTAN",
+			"680":"PALAU",
+			"970":"PALESTINE, STATE OF",
+			"507":"PANAMA",
+			"675":"PAPUA NEW GUINEA",
+			"595":"PARAGUAY",
+			"51":"PERU",
+			"63":"PHILIPPINES",
+			"1011":"PITCAIRN",
+			"48":"POLAND",
+			"14":"PORTUGAL",
+			"1787":"PUERTO RICO",
+			"974":"QATAR",
+			"262":"RÉUNION",
+			"40":"ROMANIA",
+			"8":"RUSSIAN FEDERATION",
+			"250":"RWANDA",
+			"1006":"SAINT BARTHÉLEMY",
+			"290":" SAINT HELENA, ASCENSION AND TRISTAN DA CUNHA",
+			"1869":"SAINT KITTS AND NEVIS",
+			"1758":"SAINT LUCIA",
+			"1007":"SAINT MARTIN (FRENCH PART)",
+			"508":"SAINT PIERRE AND MIQUELON",
+			"1784":"SAINT VINCENT AND THE GRENADINES",
+			"685":"SAMOA",
+			"378":"SAN MARINO",
+			"239":"SAO TOME AND PRINCIPE",
+			"966":"SAUDI ARABIA",
+			"221":"SENEGAL",
+			"381":"SERBIA",
+			"248":"SEYCHELLES",
+			"232":"SIERRA LEONE",
+			"65":"SINGAPORE",
+			"1721":"SINT MAARTEN (DUTCH PART)",
+			"421":"SLOVAKIA",
+			"386":"SLOVENIA",
+			"677":"SOLOMON ISLANDS",
+			"252":"SOMALIA",
+			"28":"SOUTH AFRICA",
+			"1008":"SOUTH GEORGIA AND THE SOUTH SANDWICH ISLANDS",
+			"211":"SOUTH SUDAN",
+			"35":"SPAIN",
+			"94":"SRI LANKA",
+			"249":"SUDAN",
+			"597":"SURINAME",
+			"1012":"SVALBARD AND JAN MAYEN",
+			"268":"SWAZILAND",
+			"46":"SWEDEN",
+			"41":"SWITZERLAND",
+			"963":"SYRIAN ARAB REPUBLIC",
+			"886":"TAIWAN, PROVINCE OF CHINA[A]",
+			"992":"TAJIKISTAN",
+			"255":"TANZANIA, UNITED REPUBLIC OF",
+			"66":"THAILAND",
+			"670":"TIMOR-LESTE (EAST TIMOR)",
+			"228":"TOGO",
+			"690":"TOKELAU",
+			"676":"TONGA",
+			"1868":"TRINIDAD AND TOBAGO",
+			"216":"TUNISIA",
+			"90":"TURKEY",
+			"993":"TURKMENISTAN",
+			"1649":"TURKS AND CAICOS ISLANDS",
+			"688":"TUVALU",
+			"256":"UGANDA",
+			"380":"UKRAINE",
+			"971":"UNITED ARAB EMIRATES",
+			"44":"UNITED KINGDOM OF GREAT BRITAIN AND NORTHERN IRELAND",
+			"2":"UNITED STATES OF AMERICA",
+			"1009":"UNITED STATES MINOR OUTLYING ISLANDS",
+			"598":"URUGUAY",
+			"998":"UZBEKISTAN",
+			"678":"VANUATU",
+			"58":"VENEZUELA (BOLIVARIAN REPUBLIC OF)",
+			"84":"VIET NAM",
+			"1284":"VIRGIN ISLANDS (BRITISH)",
+			"1340":"VIRGIN ISLANDS (U.S.)",
+			"681":"WALLIS AND FUTUNA",
+			"1013":"WESTERN SAHARA",
+			"967":"YEMEN",
+			"260":"ZAMBIA",
+			"263":"ZIMBABWE",
+			"9999":"OTHERS"
+		</xs:documentation>
+	</xs:annotation>
+	<xs:simpleType>
+		<xs:restriction base="nonEmptyString">
+				<xs:enumeration value="93" />
+				<xs:enumeration value="1001" />
+				<xs:enumeration value="355" />
+				<xs:enumeration value="213" />
+				<xs:enumeration value="684" />
+				<xs:enumeration value="376" />
+				<xs:enumeration value="244" />
+				<xs:enumeration value="1264" />
+				<xs:enumeration value="1010" />
+				<xs:enumeration value="1268" />
+				<xs:enumeration value="54" />
+				<xs:enumeration value="374" />
+				<xs:enumeration value="297" />
+				<xs:enumeration value="61" />
+				<xs:enumeration value="43" />
+				<xs:enumeration value="994" />
+				<xs:enumeration value="1242" />
+				<xs:enumeration value="973" />
+				<xs:enumeration value="880" />
+				<xs:enumeration value="1246" />
+				<xs:enumeration value="375" />
+				<xs:enumeration value="32" />
+				<xs:enumeration value="501" />
+				<xs:enumeration value="229" />
+				<xs:enumeration value="1441" />
+				<xs:enumeration value="975" />
+				<xs:enumeration value="591" />
+				<xs:enumeration value="1002" />
+				<xs:enumeration value="387" />
+				<xs:enumeration value="267" />
+				<xs:enumeration value="1003" />
+				<xs:enumeration value="55" />
+				<xs:enumeration value="1014" />
+				<xs:enumeration value="673" />
+				<xs:enumeration value="359" />
+				<xs:enumeration value="226" />
+				<xs:enumeration value="257" />
+				<xs:enumeration value="238" />
+				<xs:enumeration value="855" />
+				<xs:enumeration value="237" />
+				<xs:enumeration value="1" />
+				<xs:enumeration value="1345" />
+				<xs:enumeration value="236" />
+				<xs:enumeration value="235" />
+				<xs:enumeration value="56" />
+				<xs:enumeration value="86" />
+				<xs:enumeration value="9" />
+				<xs:enumeration value="672" />
+				<xs:enumeration value="57" />
+				<xs:enumeration value="270" />
+				<xs:enumeration value="242" />
+				<xs:enumeration value="243" />
+				<xs:enumeration value="682" />
+				<xs:enumeration value="506" />
+				<xs:enumeration value="225" />
+				<xs:enumeration value="385" />
+				<xs:enumeration value="53" />
+				<xs:enumeration value="1015" />
+				<xs:enumeration value="357" />
+				<xs:enumeration value="420" />
+				<xs:enumeration value="45" />
+				<xs:enumeration value="253" />
+				<xs:enumeration value="1767" />
+				<xs:enumeration value="1809" />
+				<xs:enumeration value="593" />
+				<xs:enumeration value="20" />
+				<xs:enumeration value="503" />
+				<xs:enumeration value="240" />
+				<xs:enumeration value="291" />
+				<xs:enumeration value="372" />
+				<xs:enumeration value="251" />
+				<xs:enumeration value="500" />
+				<xs:enumeration value="298" />
+				<xs:enumeration value="679" />
+				<xs:enumeration value="358" />
+				<xs:enumeration value="33" />
+				<xs:enumeration value="594" />
+				<xs:enumeration value="689" />
+				<xs:enumeration value="1004" />
+				<xs:enumeration value="241" />
+				<xs:enumeration value="220" />
+				<xs:enumeration value="995" />
+				<xs:enumeration value="49" />
+				<xs:enumeration value="233" />
+				<xs:enumeration value="350" />
+				<xs:enumeration value="30" />
+				<xs:enumeration value="299" />
+				<xs:enumeration value="1473" />
+				<xs:enumeration value="590" />
+				<xs:enumeration value="1671" />
+				<xs:enumeration value="502" />
+				<xs:enumeration value="1481" />
+				<xs:enumeration value="224" />
+				<xs:enumeration value="245" />
+				<xs:enumeration value="592" />
+				<xs:enumeration value="509" />
+				<xs:enumeration value="1005" />
+				<xs:enumeration value="6" />
+				<xs:enumeration value="504" />
+				<xs:enumeration value="852" />
+				<xs:enumeration value="36" />
+				<xs:enumeration value="354" />
+				<xs:enumeration value="91" />
+				<xs:enumeration value="62" />
+				<xs:enumeration value="98" />
+				<xs:enumeration value="964" />
+				<xs:enumeration value="353" />
+				<xs:enumeration value="1624" />
+				<xs:enumeration value="972" />
+				<xs:enumeration value="5" />
+				<xs:enumeration value="1876" />
+				<xs:enumeration value="81" />
+				<xs:enumeration value="1534" />
+				<xs:enumeration value="962" />
+				<xs:enumeration value="7" />
+				<xs:enumeration value="254" />
+				<xs:enumeration value="686" />
+				<xs:enumeration value="850" />
+				<xs:enumeration value="82" />
+				<xs:enumeration value="965" />
+				<xs:enumeration value="996" />
+				<xs:enumeration value="856" />
+				<xs:enumeration value="371" />
+				<xs:enumeration value="961" />
+				<xs:enumeration value="266" />
+				<xs:enumeration value="231" />
+				<xs:enumeration value="218" />
+				<xs:enumeration value="423" />
+				<xs:enumeration value="370" />
+				<xs:enumeration value="352" />
+				<xs:enumeration value="853" />
+				<xs:enumeration value="389" />
+				<xs:enumeration value="261" />
+				<xs:enumeration value="265" />
+				<xs:enumeration value="60" />
+				<xs:enumeration value="960" />
+				<xs:enumeration value="223" />
+				<xs:enumeration value="356" />
+				<xs:enumeration value="692" />
+				<xs:enumeration value="596" />
+				<xs:enumeration value="222" />
+				<xs:enumeration value="230" />
+				<xs:enumeration value="269" />
+				<xs:enumeration value="52" />
+				<xs:enumeration value="691" />
+				<xs:enumeration value="373" />
+				<xs:enumeration value="377" />
+				<xs:enumeration value="976" />
+				<xs:enumeration value="382" />
+				<xs:enumeration value="1664" />
+				<xs:enumeration value="212" />
+				<xs:enumeration value="258" />
+				<xs:enumeration value="95" />
+				<xs:enumeration value="264" />
+				<xs:enumeration value="674" />
+				<xs:enumeration value="977" />
+				<xs:enumeration value="31" />
+				<xs:enumeration value="687" />
+				<xs:enumeration value="64" />
+				<xs:enumeration value="505" />
+				<xs:enumeration value="227" />
+				<xs:enumeration value="234" />
+				<xs:enumeration value="683" />
+				<xs:enumeration value="15" />
+				<xs:enumeration value="1670" />
+				<xs:enumeration value="47" />
+				<xs:enumeration value="968" />
+				<xs:enumeration value="92" />
+				<xs:enumeration value="680" />
+				<xs:enumeration value="970" />
+				<xs:enumeration value="507" />
+				<xs:enumeration value="675" />
+				<xs:enumeration value="595" />
+				<xs:enumeration value="51" />
+				<xs:enumeration value="63" />
+				<xs:enumeration value="1011" />
+				<xs:enumeration value="48" />
+				<xs:enumeration value="14" />
+				<xs:enumeration value="1787" />
+				<xs:enumeration value="974" />
+				<xs:enumeration value="262" />
+				<xs:enumeration value="40" />
+				<xs:enumeration value="8" />
+				<xs:enumeration value="250" />
+				<xs:enumeration value="1006" />
+				<xs:enumeration value="290" />
+				<xs:enumeration value="1869" />
+				<xs:enumeration value="1758" />
+				<xs:enumeration value="1007" />
+				<xs:enumeration value="508" />
+				<xs:enumeration value="1784" />
+				<xs:enumeration value="685" />
+				<xs:enumeration value="378" />
+				<xs:enumeration value="239" />
+				<xs:enumeration value="966" />
+				<xs:enumeration value="221" />
+				<xs:enumeration value="381" />
+				<xs:enumeration value="248" />
+				<xs:enumeration value="232" />
+				<xs:enumeration value="65" />
+				<xs:enumeration value="1721" />
+				<xs:enumeration value="421" />
+				<xs:enumeration value="386" />
+				<xs:enumeration value="677" />
+				<xs:enumeration value="252" />
+				<xs:enumeration value="28" />
+				<xs:enumeration value="1008" />
+				<xs:enumeration value="211" />
+				<xs:enumeration value="35" />
+				<xs:enumeration value="94" />
+				<xs:enumeration value="249" />
+				<xs:enumeration value="597" />
+				<xs:enumeration value="1012" />
+				<xs:enumeration value="268" />
+				<xs:enumeration value="46" />
+				<xs:enumeration value="41" />
+				<xs:enumeration value="963" />
+				<xs:enumeration value="886" />
+				<xs:enumeration value="992" />
+				<xs:enumeration value="255" />
+				<xs:enumeration value="66" />
+				<xs:enumeration value="670" />
+				<xs:enumeration value="228" />
+				<xs:enumeration value="690" />
+				<xs:enumeration value="676" />
+				<xs:enumeration value="1868" />
+				<xs:enumeration value="216" />
+				<xs:enumeration value="90" />
+				<xs:enumeration value="993" />
+				<xs:enumeration value="1649" />
+				<xs:enumeration value="688" />
+				<xs:enumeration value="256" />
+				<xs:enumeration value="380" />
+				<xs:enumeration value="971" />
+				<xs:enumeration value="44" />
+				<xs:enumeration value="2" />
+				<xs:enumeration value="1009" />
+				<xs:enumeration value="598" />
+				<xs:enumeration value="998" />
+				<xs:enumeration value="678" />
+				<xs:enumeration value="58" />
+				<xs:enumeration value="84" />
+				<xs:enumeration value="1284" />
+				<xs:enumeration value="1340" />
+				<xs:enumeration value="681" />
+				<xs:enumeration value="1013" />
+				<xs:enumeration value="967" />
+				<xs:enumeration value="260" />
+				<xs:enumeration value="263" />
+				<xs:enumeration value="9999" />
+		</xs:restriction>
+	</xs:simpleType>
+</xs:element>
+	<xs:element name="TaxesPaid">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="AdvanceTax">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:totalDigits value="14" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="TDS">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:totalDigits value="14" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="TCS">
+					<xs:annotation>
+						<xs:documentation>Required for ITR4</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:totalDigits value="14" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="SelfAssessmentTax">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:totalDigits value="14" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="TotalTaxesPaid">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:totalDigits value="14" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="TDSonSalary">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="EmployerOrDeductorOrCollectDetl" />
+				<xs:element name="IncChrgSal" default="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:totalDigits value="14" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="TotalTDSSal" default="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:totalDigits value="14" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="EmployerOrDeductorOrCollectDetl">
+		<xs:annotation>
+			<xs:documentation>Dedcutor Details</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="TAN">
+					<xs:simpleType>
+						<xs:restriction base="nonEmptyString">
+							<xs:pattern value="[A-Z]{4}[0-9]{5}[A-Z]" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="EmployerOrDeductorOrCollecterName">
+					<xs:simpleType>
+						<xs:restriction base="nonEmptyString">
+							<xs:maxLength value="125" />
+							<xs:minLength value="1" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ScheduleTDS3Dtls">
+		<xs:annotation>
+			<xs:documentation>Details of Tax Deducted at Source [16C furnished by the Deductor(s)]
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="TDS3Details" maxOccurs="unbounded" />
+				<xs:element name="TotalTDS3Details" default="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:totalDigits value="14" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="TDS3Details">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="PANofTenant">
+					<xs:simpleType>
+						<xs:restriction base="nonEmptyString">
+							<xs:pattern value="[A-Z]{5}[0-9]{4}[A-Z]" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="DeductedYr" minOccurs="0">
+					<xs:simpleType>
+						<xs:restriction base="nonEmptyString">
+							<xs:enumeration value="2017" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="BroughtFwdTDSAmt" minOccurs="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:totalDigits value="14" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="TDSDeducted" minOccurs="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:totalDigits value="14" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="TDSClaimed">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:totalDigits value="14" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="GrossAmount">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:totalDigits value="14" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="HeadOfIncome">
+					<xs:annotation>
+						<xs:documentation>
+							HP - Income from House property
+						</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:enumeration value="HP"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="TDSCreditCarriedFwd">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:totalDigits value="14" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="GoodsDtlsUs44AE">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="RegNumberGoodsCarriage">
+					<xs:simpleType>
+						<xs:restriction base="nonEmptyString">
+							<xs:maxLength value="10" />
+							<xs:minLength value="1" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="OwnedLeasedHiredFlag">
+					<xs:annotation>
+						<xs:documentation>
+							OWN : Owned
+							LEASE : Leased
+							HIRED : Hired
+						</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="xs:token">
+							<xs:enumeration value="OWN" />
+							<xs:enumeration value="LEASE" />
+							<xs:enumeration value="HIRED" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="TonnageCapacity">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:totalDigits value="14" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="HoldingPeriod">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:totalDigits value="2" />
+							<xs:minInclusive value="1" />
+							<xs:maxInclusive value="12" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="PresumptiveIncome">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:minInclusive value="7500" />
+							<xs:totalDigits value="14" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="TaxPayment">
+		<xs:annotation>
+			<xs:documentation>Tax payment detail</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="BSRCode">
+					<xs:simpleType>
+						<xs:restriction base="nonEmptyString">
+							<xs:pattern value="[0-9]{7}" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="DateDep">
+					<xs:simpleType>
+						<xs:restriction base="xs:date">
+							<xs:minInclusive value="2018-04-01" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="SrlNoOfChaln">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:totalDigits value="5" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="Amt" default="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:totalDigits value="14" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="DoneeWithPan">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="DoneeWithPanName">
+					<xs:simpleType>
+						<xs:restriction base="nonEmptyString">
+							<xs:maxLength value="125" />
+							<xs:minLength value="1" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="DoneePAN">
+					<xs:simpleType>
+						<xs:restriction base="nonEmptyString">
+							<xs:pattern value="[A-Z]{5}[0-9]{4}[A-Z]" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="AddressDetail" type="AddressDetail80G" />
+				<xs:element name="DonationAmtCash" default="0" minOccurs="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:totalDigits value="14" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="DonationAmtOtherMode" default="0" minOccurs="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:totalDigits value="14" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="DonationAmt" default="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:totalDigits value="14" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="EligibleDonationAmt" default="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:totalDigits value="14" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="AddressDetail">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="AddrDetail">
+					<xs:simpleType>
+						<xs:restriction base="nonEmptyString">
+							<xs:maxLength value="200" />
+							<xs:minLength value="1"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="CityOrTownOrDistrict">
+					<xs:simpleType>
+						<xs:restriction base="nonEmptyString">
+							<xs:minLength value="1" />
+							<xs:maxLength value="50" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element ref="StateCode"/>
+				<xs:element name="PinCode">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:pattern value="[1-9]{1}[0-9]{5}" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:complexType name="AddressDetail80G">
+	<xs:sequence>
+		<xs:element name="AddrDetail">
+			<xs:simpleType>
+				<xs:restriction base="nonEmptyString">
+					<xs:maxLength value="200" />
+					<xs:minLength value="1" />
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:element>
+		<xs:element name="CityOrTownOrDistrict">
+			<xs:simpleType>
+				<xs:restriction base="nonEmptyString">
+					<xs:minLength value="1" />
+					<xs:maxLength value="50" />
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:element>
+		<xs:element name="StateCode">
+			<xs:annotation>
+				<xs:documentation>
+					01-Andaman and Nicobar islands
+					02-Andhra Pradesh
+					03-Arunachal Pradesh
+					04-Assam
+					05-Bihar
+					06-Chandigarh
+					07-Dadra Nagar and Haveli
+					08-Daman and Diu
+					09- Delhi
+					10- Goa
+					11-Gujarat
+					12- Haryana
+					13- Himachal Pradesh
+					14-Jammu and Kashmir
+					15- Karnataka
+					16- Kerala
+					17- Lakshadweep
+					18-Madhya Pradesh
+					19-Maharashtra
+					20-Manipur
+					21-meghalaya
+					22-Mizoram
+					23-Nagaland
+					24- Orissa
+					25- Pondicherry
+					26- Punjab
+					27-Rajasthan
+					28- Sikkim
+					29-Tamil Nadu
+					30- Tripura
+					31-Uttar Pradesh
+					32- West Bengal
+					33- Chhattisgarh
+					34- Uttarakhand
+					35- Jharkhand
+					36- Telangana
+				</xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="nonEmptyString">
+					<xs:enumeration value="01" />
+					<xs:enumeration value="02" />
+					<xs:enumeration value="03" />
+					<xs:enumeration value="04" />
+					<xs:enumeration value="05" />
+					<xs:enumeration value="06" />
+					<xs:enumeration value="07" />
+					<xs:enumeration value="08" />
+					<xs:enumeration value="09" />
+					<xs:enumeration value="10" />
+					<xs:enumeration value="11" />
+					<xs:enumeration value="12" />
+					<xs:enumeration value="13" />
+					<xs:enumeration value="14" />
+					<xs:enumeration value="15" />
+					<xs:enumeration value="16" />
+					<xs:enumeration value="17" />
+					<xs:enumeration value="18" />
+					<xs:enumeration value="19" />
+					<xs:enumeration value="20" />
+					<xs:enumeration value="21" />
+					<xs:enumeration value="22" />
+					<xs:enumeration value="23" />
+					<xs:enumeration value="24" />
+					<xs:enumeration value="25" />
+					<xs:enumeration value="26" />
+					<xs:enumeration value="27" />
+					<xs:enumeration value="28" />
+					<xs:enumeration value="29" />
+					<xs:enumeration value="30" />
+					<xs:enumeration value="31" />
+					<xs:enumeration value="32" />
+					<xs:enumeration value="33" />
+					<xs:enumeration value="34" />
+					<xs:enumeration value="35" />
+					<xs:enumeration value="36" />
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:element>
+		<xs:element name="PinCode">
+			<xs:simpleType>
+				<xs:restriction base="xs:unsignedLong">
+					<xs:pattern value="[1-9]{1}[0-9]{5}" />
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:element>
+	</xs:sequence>
+</xs:complexType>
+	<xs:complexType name="UsrDeductUndChapVIAType">
+		<xs:annotation>
+			<xs:documentation> Deductions from income</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Section80C">
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedLong">
+						<xs:totalDigits value="14" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Section80CCC">
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedLong">
+						<xs:totalDigits value="14" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Section80CCDEmployeeOrSE">
+				<xs:annotation>
+					<xs:documentation>For Employee/SelfEmployed</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedLong">
+						<xs:totalDigits value="14" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Section80CCDEmployer">
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedLong">
+						<xs:totalDigits value="14" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Section80CCD1B">
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedLong">
+						<xs:totalDigits value="14" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Section80DHealthInsPremium" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="HealthInsurancePremium" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>
+									1 : Self and Family
+									2 : Self(Senior citizen) and Family
+									3 : Parents
+									4 : Parents(Senior citizen)
+									5 : Self and Family including Parents
+									6 : Self and Family including Senior Citizen Parents
+									7 : Self (Senior Citizen) and Family including Senior Citizen Parents
+								</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:enumeration value="1" />
+									<xs:enumeration value="2" />
+									<xs:enumeration value="3" />
+									<xs:enumeration value="4" />
+									<xs:enumeration value="5" />
+									<xs:enumeration value="6" />
+									<xs:enumeration value="7" />
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="Sec80DHealthInsurancePremiumUsr" minOccurs="0">
+							<xs:simpleType>
+								<xs:restriction base="xs:unsignedLong">
+									<xs:totalDigits value="14" />
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="MedicalExpenditure" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>
+									1 : Self and Family (senior citizen)
+									2 : Parents (senior citizen)
+									3 : Self and Family including parents (senior citizen)
+								</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:enumeration value="1" />
+									<xs:enumeration value="2" />
+									<xs:enumeration value="3" />
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="Sec80DMedicalExpenditureUsr" minOccurs="0">
+							<xs:simpleType>
+								<xs:restriction base="xs:unsignedLong">
+									<xs:totalDigits value="14" />
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="PreventiveHealthCheckUp" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>
+									1 : Self and family
+									2 : Parent
+									3 : Self and family and Parents
+								</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string">
+									<xs:enumeration value="1" />
+									<xs:enumeration value="2" />
+									<xs:enumeration value="3" />
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="Sec80DPreventiveHealthCheckUpUsr" minOccurs="0">
+							<xs:simpleType>
+								<xs:restriction base="xs:unsignedLong">
+									<xs:totalDigits value="14" />
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Section80DDUsrType" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>
+						1 : Dependent person with Disability
+						2 : Dependent person with Severe Disability
+						</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="nonEmptyString">
+							<xs:enumeration value="1" />
+							<xs:enumeration value="2" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			<xs:element name="Section80DD">
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedLong">
+						<xs:totalDigits value="14" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Section80DDBUsrType" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>
+						1 : Self or dependent 
+						2 : Self or dependent - Senior Citizen 
+						</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="nonEmptyString">
+							<xs:enumeration value="1" />
+							<xs:enumeration value="2" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			<xs:element name="Section80DDB">
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedLong">
+						<xs:totalDigits value="14" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Section80E">
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedLong">
+						<xs:totalDigits value="14" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Section80EE" default="0" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedLong">
+						<xs:totalDigits value="14" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Section80G">
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedLong">
+						<xs:totalDigits value="14" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Section80GG">
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedLong">
+						<xs:totalDigits value="14" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Section80GGC">
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedLong">
+						<xs:totalDigits value="14" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Section80UUsrType" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>
+						1 : Self with disability 
+						2 : Self with severe disability 
+						</xs:documentation>
+					</xs:annotation>
+					<xs:simpleType>
+						<xs:restriction base="nonEmptyString">
+							<xs:enumeration value="1" />
+							<xs:enumeration value="2" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			<xs:element name="Section80U">
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedLong">
+						<xs:totalDigits value="14" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Section80CCG">
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedLong">
+						<xs:totalDigits value="14" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Section80TTA">
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedLong">
+						<xs:totalDigits value="14" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Section80TTB">
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedLong">
+						<xs:totalDigits value="14" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="TotalChapVIADeductions">
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedLong">
+						<xs:totalDigits value="14" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="DeductUndChapVIAType">
+		<xs:annotation>
+			<xs:documentation> Deductions from income</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Section80C">
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedLong">
+						<xs:totalDigits value="14" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Section80CCC">
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedLong">
+						<xs:totalDigits value="14" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Section80CCDEmployeeOrSE">
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedLong">
+						<xs:totalDigits value="14" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Section80CCDEmployer">
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedLong">
+						<xs:totalDigits value="14" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Section80CCD1B">
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedLong">
+						<xs:totalDigits value="14" />
+						<xs:maxInclusive value="50000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Section80D">
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedLong">
+						<xs:totalDigits value="14" />
+						<xs:maxInclusive value="100000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Section80DD">
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedLong">
+						<xs:totalDigits value="14" />
+						<xs:maxInclusive value="125000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Section80DDB">
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedLong">
+						<xs:totalDigits value="14" />
+						<xs:maxInclusive value="100000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Section80E">
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedLong">
+						<xs:totalDigits value="14" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Section80EE" default="0" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedLong">
+						<xs:totalDigits value="14" />
+						<xs:maxInclusive value="50000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Section80G">
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedLong">
+						<xs:totalDigits value="14" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Section80GG">
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedLong">
+						<xs:totalDigits value="14" />
+						<xs:maxInclusive value="60000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Section80GGC">
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedLong">
+						<xs:totalDigits value="14" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Section80U">
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedLong">
+						<xs:totalDigits value="14" />
+						<xs:maxInclusive value="125000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Section80CCG">
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedLong">
+						<xs:totalDigits value="14" />
+						<xs:maxInclusive value="25000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Section80TTA">
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedLong">
+						<xs:totalDigits value="14" />
+						<xs:maxInclusive value="10000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="Section80TTB">
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedLong">
+						<xs:totalDigits value="14" />
+						<xs:maxInclusive value="50000"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="TotalChapVIADeductions">
+				<xs:simpleType>
+					<xs:restriction base="xs:unsignedLong">
+						<xs:totalDigits value="14" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="IntrstPay">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="IntrstPayUs234A" default="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:totalDigits value="14" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="IntrstPayUs234B" default="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:totalDigits value="14" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="IntrstPayUs234C" default="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:totalDigits value="14" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="LateFilingFee234F" default="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:totalDigits value="14" />
+							<xs:maxInclusive value="10000"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="PersumptiveInc44AD">
+		<xs:annotation>
+			<xs:documentation>Computation of Persumptive Income Under 44AD</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="GrsTrnOverBank" minOccurs="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:totalDigits value="8" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="GrsTrnOverAnyOthMode" minOccurs="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:totalDigits value="8" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="PersumptiveInc44AD6Per" minOccurs="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:totalDigits value="14" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="PersumptiveInc44AD8Per" minOccurs="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:totalDigits value="14" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="TotPersumptiveInc44AD" minOccurs="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:totalDigits value="14" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="PersumptiveInc44ADA">
+		<xs:annotation>
+			<xs:documentation>Computation of Persumptive Income Under 44ADA (Profession)</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="GrsReceipt">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:totalDigits value="7" />
+							<xs:maxInclusive value="5000000" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="TotPersumptiveInc44ADA">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:totalDigits value="14" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="PersumptiveInc44AE">
+		<xs:annotation>
+			<xs:documentation>Computation of Persumptive Income Under 44AE
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="TotPersumInc44AE" minOccurs="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:totalDigits value="14" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="SalInterestByFirm" minOccurs="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:totalDigits value="14" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="TotalPersumptiveInc" minOccurs="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:unsignedLong">
+							<xs:totalDigits value="14" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+				<xs:element name="IncChargeableUnderBus" minOccurs="0">
+					<xs:simpleType>
+						<xs:restriction base="xs:long">
+							<xs:totalDigits value="14" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="FinanclPartclrOfBusiness">
+		<xs:complexType>
+			<xs:sequence>
+					<xs:element name="PartnerMemberOwnCapital" minOccurs="0">
+						<xs:simpleType>
+							<xs:restriction base="xs:unsignedLong">
+								<xs:totalDigits value="14" />
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="SecuredLoans" minOccurs="0">
+						<xs:simpleType>
+							<xs:restriction base="xs:unsignedLong">
+								<xs:totalDigits value="14" />
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="UnSecuredLoans" minOccurs="0">
+						<xs:simpleType>
+							<xs:restriction base="xs:unsignedLong">
+								<xs:totalDigits value="14" />
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="Advances" minOccurs="0">
+						<xs:simpleType>
+							<xs:restriction base="xs:unsignedLong">
+								<xs:totalDigits value="14" />
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="SundryCreditors" minOccurs="0">
+						<xs:simpleType>
+							<xs:restriction base="xs:unsignedLong">
+								<xs:totalDigits value="14" />
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="OthrCurrLiab" minOccurs="0">
+						<xs:simpleType>
+							<xs:restriction base="xs:unsignedLong">
+								<xs:totalDigits value="14" />
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="TotCapLiabilities" default="0" minOccurs="0">
+						<xs:simpleType>
+							<xs:restriction base="xs:unsignedLong">
+								<xs:totalDigits value="14" />
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="FixedAssets" minOccurs="0">
+						<xs:simpleType>
+							<xs:restriction base="xs:unsignedLong">
+								<xs:totalDigits value="14" />
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="Inventories" minOccurs="0">
+						<xs:simpleType>
+							<xs:restriction base="xs:unsignedLong">
+								<xs:totalDigits value="14" />
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="SundryDebtors" minOccurs="0">
+						<xs:simpleType>
+							<xs:restriction base="xs:unsignedLong">
+								<xs:totalDigits value="14" />
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="BalWithBanks" minOccurs="0">
+						<xs:simpleType>
+							<xs:restriction base="xs:unsignedLong">
+								<xs:totalDigits value="14" />
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="CashInHand" minOccurs="0">
+						<xs:simpleType>
+							<xs:restriction base="xs:unsignedLong">
+								<xs:totalDigits value="14" />
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="LoansAndAdvances" minOccurs="0">
+						<xs:simpleType>
+							<xs:restriction base="xs:unsignedLong">
+								<xs:totalDigits value="14" />
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="OtherAssets" minOccurs="0">
+						<xs:simpleType>
+							<xs:restriction base="xs:unsignedLong">
+								<xs:totalDigits value="14" />
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element name="TotalAssets" default="0" minOccurs="0">
+						<xs:simpleType>
+							<xs:restriction base="xs:unsignedLong">
+								<xs:totalDigits value="14" />
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="BankAccountDtls">
+		<xs:annotation>
+			<xs:documentation>Bank details</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="PriBankDetails" type="BankDetailType" />
+				<xs:element name="AddtnlBankDetails" type="BankDetailType" minOccurs="0" maxOccurs="unbounded" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="BankDetailType">
+		<xs:sequence>
+			<xs:element name="IFSCCode">
+				<xs:simpleType>
+					<xs:restriction base="nonEmptyString">
+						<xs:pattern value="[A-Z]{4}[0][A-Z0-9]{6}" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="BankName">
+				<xs:simpleType>
+					<xs:restriction base="nonEmptyString">
+						<xs:minLength value="1" />
+						<xs:maxLength value="125" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="BankAccountNo">
+				<xs:simpleType>
+					<xs:restriction base="nonZeroString">
+						<xs:pattern
+							value="[a-zA-Z0-9]([/-]?(((\d*[1-9]\d*)*[a-zA-Z/-])|(\d*[1-9]\d*[a-zA-Z]*))+)*[0-9]*" />
+						<xs:minLength value="1" />
+						<xs:maxLength value="20" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="StateCode">
+		<xs:annotation>
+			<xs:documentation>
+				01-Andaman and Nicobar islands
+				02-Andhra Pradesh
+				03-Arunachal Pradesh
+				04-Assam
+				05-Bihar
+				06-Chandigarh
+				07-Dadra Nagar and Haveli
+				08-Daman and Diu
+				09- Delhi
+				10- Goa
+				11-Gujarat
+				12- Haryana
+				13- Himachal Pradesh
+				14-Jammu and Kashmir
+				15- Karnataka
+				16- Kerala
+				17- Lakshadweep
+				18-Madhya Pradesh
+				19-Maharashtra
+				20-Manipur
+				21-meghalaya
+				22-Mizoram
+				23-Nagaland
+				24- Orissa
+				25- Pondicherry
+				26- Punjab
+				27-Rajasthan
+				28- Sikkim
+				29-Tamil Nadu
+				30- Tripura
+				31-Uttar Pradesh
+				32- West Bengal
+				33- Chhattisgarh
+				34- Uttarakhand
+				35- Jharkhand
+				36- Telangana
+				99- Foreign
+			</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="nonEmptyString">
+				<xs:enumeration value="01" />
+				<xs:enumeration value="02" />
+				<xs:enumeration value="03" />
+				<xs:enumeration value="04" />
+				<xs:enumeration value="05" />
+				<xs:enumeration value="06" />
+				<xs:enumeration value="07" />
+				<xs:enumeration value="08" />
+				<xs:enumeration value="09" />
+				<xs:enumeration value="10" />
+				<xs:enumeration value="11" />
+				<xs:enumeration value="12" />
+				<xs:enumeration value="13" />
+				<xs:enumeration value="14" />
+				<xs:enumeration value="15" />
+				<xs:enumeration value="16" />
+				<xs:enumeration value="17" />
+				<xs:enumeration value="18" />
+				<xs:enumeration value="19" />
+				<xs:enumeration value="20" />
+				<xs:enumeration value="21" />
+				<xs:enumeration value="22" />
+				<xs:enumeration value="23" />
+				<xs:enumeration value="24" />
+				<xs:enumeration value="25" />
+				<xs:enumeration value="26" />
+				<xs:enumeration value="27" />
+				<xs:enumeration value="28" />
+				<xs:enumeration value="29" />
+				<xs:enumeration value="30" />
+				<xs:enumeration value="31" />
+				<xs:enumeration value="32" />
+				<xs:enumeration value="33" />
+				<xs:enumeration value="34" />
+				<xs:enumeration value="35" />
+				<xs:enumeration value="36" />
+				<xs:enumeration value="99" />
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:simpleType name="nonZeroString">
+		<xs:restriction base="endWithDigit">
+			<xs:pattern value=".*[1-9].*" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="endWithDigit">
+		<xs:restriction base="xs:string">
+			<xs:pattern value=".*[0-9]" />
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

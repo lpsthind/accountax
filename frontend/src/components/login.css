@@ -1,0 +1,83 @@
+div.login_form {
+    border: 0.5px solid rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 40px 40px 20px 40px;
+    width: 28%;
+    margin-left: 50%;
+    margin-top: 20%;
+    transform: translate(-50%, -20%);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    background-color: #fff;
+}
+
+body{
+  height:100%;
+  overflow: hidden;
+}
+
+
+button.win-head{
+  width:20px;
+  height:20px;
+  outline:none;
+  border:2px solid transparent;
+  border-radius: 50%;
+  margin-right: 4px;
+  z-index: 20000;
+}
+
+button.win-head#min-btn{
+  background-color: rgba(255, 136, 0, 0.938);
+}
+button.win-head#max-btn{
+  background-color: green;
+}
+button.win-head#close-btn{
+  background-color: rgba(201, 0, 0, 0.966);
+}
+
+button.win-head#min-btn:hover{
+  background-color: yellow;
+}
+button.win-head#max-btn:hover{
+  background-color: rgb(157, 255, 0);
+}
+button.win-head#close-btn:hover{
+  background-color: red;
+}
+
+
+
+@media only screen and (max-width: 1150px) {
+    div.login_form {
+      padding: 35px 40px 20px 40px;
+      width: 35%;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    }
+  }
+  
+  @media only screen and (max-width: 950px) {
+    div.login_form {
+      padding: 35px 40px 20px 40px;
+      width: 40%;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    }
+  }
+  
+  @media only screen and (max-width: 800px) {
+    div.login_form {
+      padding: 35px 40px 20px 40px;
+      width: 60%;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    }
+  }
+  
+  @media only screen and (max-width: 500px) {
+    div.login_form {
+      border-radius: 0px;
+      width: 100%;
+      box-shadow: 0 0px 0px rgba(0, 0, 0, 0);
+    }
+  }
+  
+  

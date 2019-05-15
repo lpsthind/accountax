@@ -1,0 +1,17 @@
+tr.drawer-client:hover{
+    background-color: rgb(155, 18, 0);
+    color: #fff;
+    /* border:0.5px solid rgba(0,0,0,.4); */
+    border:0.5px solid rgb(155, 18, 0);
+    box-shadow: 0px 8px 15px rgba(155, 18, 0,0.5); 
+    -moz-box-shadow: 0px 8px 15px rgba(155, 18, 0,0.5);
+    -webkit-box-shadow: 0px 8px 15px rgba(155, 18, 0,0.5);
+    -o-box-shadow: 0px 8px 15px rgba(155, 18, 0,0.5);
+    box-sizing: border-box;
+    cursor:pointer;
+}
+
+tr.drawer-client td , th.drawer-client-head{
+    padding: 0px 15px 0px 15px;
+}
+

@@ -1,0 +1,114 @@
+*{
+  outline: none;
+}
+.ant-message,{
+  z-index: 3000;
+}
+
+div.isearch-background{
+  width:100%;
+  height:100%;
+  background-color: rgba(0,0,0,.7);
+  position:fixed;
+  top:0px;
+  left:0px;
+  z-index: 1100;
+  transition: all .5s;
+}
+
+div.isearch-input-wrapper{
+  background-color: #fff;
+  position: relative;
+  width: calc(40% + 0px);
+  margin-left: calc(30% - 0px);
+  margin-top:16%;
+  transform: translate(-0%,-14%);
+  border:1px solid rgba(0,0,0,0.5);
+  border-radius: 15px;
+  z-index: 2000;
+  transition: all 0.2s;
+}
+.isearch-icon-prefix{
+  position: relative;
+  z-index: 2000;
+  color:#1890ff;
+  font-size: 1.2em;
+}
+div.isearch-wrap-close{
+  margin-top:-500px;
+  transition: all 0.8s;
+}
+div.isearch-input-wrapper.active{
+  border-radius: 15px 15px 0px 0px;
+  transition: all 0.8s;
+  border-bottom: transparent;
+  padding:0px 0px 10px 0px;
+}
+input.isearch-input{
+  position: relative;
+  width: calc(100% - 50px);
+  height:40px;
+  border: 0.5px solid transparent;
+  padding: 0px 20px 0px 30px;
+  outline: none;
+  z-index: 2000;
+  border-bottom: #fff;
+  text-transform: uppercase;
+  color:rgba(0,0,0,0.7);
+  transition: all 0.5s;
+}
+
+input.isearch-input.active {
+  border-bottom: 0.5px solid rgba(0,0,0,0.2);
+}
+
+input.error{
+  color:red;
+}
+.isearch-scroll-content-div{
+  margin-left: calc(50% - 0px);
+  margin-top: -7px;
+  transform: translate(-50%,-15%);
+  position: relative;
+  border:1px solid rgba(0,0,0,0.5);
+  border-radius: 10px 10px 15px 15px;
+  background-color: #fff;
+  z-index: 1999;
+  padding: 0px 0px 15px 0px;
+  transition: all 0.8s;
+  display: flexbox;
+  max-height:280px;
+}
+
+.isearch-ul{
+  list-style: none;
+  position: relative;
+  text-decoration: none;
+  margin:0px 0px 0px 0px;
+  padding: 35px 0px 0px 0px;
+  transition: all 0.8s;
+  /* z-index: 2001; */
+}
+.isearch-table-li{
+  text-align: left;
+  position: relative;
+  padding: 5px 20px 5px 30px;
+  margin:0px 0px 0px 0px;
+  background-color: transparent;
+  color:rgba(0,0,0,0.7);
+  text-transform: capitalize;
+  /*transition: all 0.8s;*/
+  /* z-index: 2005; */
+}
+.isearch-table-li:hover,
+.isearch-table-li:active,
+.isearch-table-li:focus,
+.isearch-table-li:valid{
+  background-color: #eeeeee;
+}
+
+.li-user{
+  float:right;
+  color:red;
+  text-transform: capitalize;
+}
