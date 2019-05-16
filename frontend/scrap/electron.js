@@ -1,5 +1,4 @@
 const electron = require("electron");
-// const isDev = require('electron-is-dev');
 const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
 
@@ -9,18 +8,8 @@ const url = require("url");
 let mainWindow;
 
 function createWindow() {
-  mainWindow = new BrowserWindow({
-    width: 1200,
-    height: 600,
-    frame: false,
-    titleBarStyle: "hiddenInset",
-    icon: __dirname + "/src/win.ico",
-    webPreferences: {
-      nodeIntegration: true
-    }
-  });
-  mainWindow.setMenuBarVisibility(true);
-  mainWindow.webContents.openDevTools();
+  mainWindow = new BrowserWindow({ width: 800, height: 600 });
+
   mainWindow.loadURL(
     process.env.ELECTRON_START_URL ||
       url.format({

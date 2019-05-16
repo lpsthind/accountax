@@ -33,6 +33,7 @@ div.isearch-input-wrapper{
   z-index: 2000;
   color:#1890ff;
   font-size: 1.2em;
+  margin-left:15px;
 }
 div.isearch-wrap-close{
   margin-top:-500px;

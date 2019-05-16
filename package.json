@@ -1,6 +1,6 @@
 {
-  "name": "frontend",
-  "version": "1.0.1",
+  "name": "frontend2",
+  "version": "0.1.0",
   "private": true,
   "dependencies": {
     "@ant-design/icons": "^1.2.1",
@@ -19,7 +19,6 @@
     "bootstrap": "^4.3.1",
     "concurrently": "^4.1.0",
     "date-fns": "^2.0.0-alpha.27",
-    "electron-is-dev": "^1.1.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-import": "^2.17.2",
     "eslint-plugin-jsx-a11y": "^6.2.1",
@@ -49,14 +48,14 @@
     "start": "nf start -p 3000",
     "electron-start": "node src/start-react",
     "pyapi-start": "node src/pyapi.js",
-    "react-start": "BROWSER=none react-scripts start",
+    "react-start": "BROWSER=none react-scripts start && pyapi-start",
     "electron": "electron .",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "pack": "build --dir",
     "dist": "npm run build && build",
-    "postinstall": "electron-builder install-app-deps"
+    "postinstall": "install-app-deps"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -65,16 +64,11 @@
   "main": "src/mainElectron.js",
   "build": {
     "appId": "com.electron.electron-with-create-react-app",
-    "linux": {
-      "target": "deb",
-      "category": "Business"
+    "win": {
+      "iconUrl": "https://cdn2.iconfinder.com/data/icons/designer-skills/128/react-256.png"
     },
-    "files": [
-      "build/**/*",
-      "node_modules/**/*"
-    ],
     "directories": {
-      "buildResources": "assets"
+      "buildResources": "public"
     }
   },
   "browserslist": [
@@ -90,6 +84,6 @@
     "json-loader": "^0.5.7",
     "remote-redux-devtools": "^0.5.16"
   },
-  "author": "Lovepreet Singh <love22thind@gmail.com>",
+  "author": "Lovepreet",
   "description": "This is Accountrust software for Tax Management."
 }

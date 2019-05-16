@@ -11,9 +11,10 @@ button.drawer-btn{
     height:25px;
     color:#fff;
     font-size: 10px;
-    background-color: #096dd9;
-    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
-    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.12);
+    /*background-color: #096dd9;*/
+    background-color: transparent;
+    /*box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);*/
+    /*text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.12);*/
     box-sizing: border-box;
     text-align: center;
     border: 1px solid transparent;

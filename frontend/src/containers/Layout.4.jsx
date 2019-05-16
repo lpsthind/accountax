@@ -139,24 +139,23 @@ class CustomLayout extends Component {
 		currentWindow.setHasShadow(true)
 		currentWindow.setMovable(true)
 		// currentWindow.setIcon(path.join(__dirname, '/src/win.ico'))
-		const iconSize = "1.45em"
+		const iconSize = "1.2em"
+		const iconMenuSize = "0px"
 		const footerStyle = {
 			listStyle: "none",
 			display: "inline-block",
 			paddingLeft: "10px",
 			paddingRight: "10px",
 		}
-		const oi = "fkfog"
 		return (
-
 			<Layout style={{ minHeight: '100vh' }}>
 				<Sider
 					collapsible
 					collapsed={this.state.collapsed}
 					onCollapse={this.onCollapse}
-					style={{ padding: "0px" }}
+					style={{ padding: "0px" , display:"none", }}
 					theme="light"
-					collapsedWidth="64"
+					collapsedWidth={iconMenuSize}
 					width="240"
 				>
 					<SideNav
@@ -165,29 +164,48 @@ class CustomLayout extends Component {
 								this.props.loginPage()
 							}
 						}}
-						style={{ backgroundColor: "#002140" }}
+						style={{ 
+							backgroundColor:"#24292e",
+							minWidth:this.state.collapsed ? iconMenuSize : "240px",
+							display:"none",
+						}}
 					>
-						<Toggle onClick={this.handleHead} />
-						<Nav defaultSelected="home" >
+						<Toggle 
+							onClick={this.handleHead} 
+							style={{
+								width:this.state.collapsed ? iconMenuSize : "240px",
+								minWidth:this.state.collapsed ? iconMenuSize : "240px",
+								height:"35px",
+								paddingTop:"0px",
+								display:"none",
+							}}/>
+						<Nav 
+							defaultSelected="home" 
+							style={{
+								width:this.state.collapsed ? iconMenuSize : "240px",
+								minWidth:this.state.collapsed ? iconMenuSize : "240px",
+								padding:"0",
+
+							}}>
 							<NavItem eventKey="home">
-								<NavIcon>
-									<FontAwesomeIcon icon={faHome} style={{ fontSize: iconSize }} />
+								<NavIcon style={{width:iconMenuSize}}>
+									<FontAwesomeIcon icon={faHome} style={{ fontSize: iconSize, display:"none"}} />
 								</NavIcon>
 								<NavText>
 									Home
                                 </NavText>
 							</NavItem>
 							<NavItem eventKey="clients">
-								<NavIcon>
-									<FontAwesomeIcon icon={faListAlt} style={{ fontSize: iconSize }} />
+								<NavIcon style={{width:iconMenuSize}}>
+									<FontAwesomeIcon icon={faListAlt} style={{ fontSize: iconSize, display:"none" }} />
 								</NavIcon>
 								<NavText>
 									Client Master
                             </NavText>
 							</NavItem>
 							<NavItem eventKey="charts">
-								<NavIcon>
-									<FontAwesomeIcon icon={faChartLine} style={{ fontSize: iconSize }} />
+								<NavIcon style={{width:iconMenuSize}}>
+									<FontAwesomeIcon icon={faChartLine} style={{ fontSize: iconSize, display:"none" }} />
 								</NavIcon>
 								<NavText>
 									Charts
@@ -204,9 +222,9 @@ class CustomLayout extends Component {
 								</NavItem>
 							</NavItem>
 							<NavItem eventKey="setting">
-								<NavIcon>
+								<NavIcon style={{width:iconMenuSize}}>
 									<div onClick={this.handelSettings}>
-										<FontAwesomeIcon icon={faCogs} style={{ fontSize: iconSize }} />
+										<FontAwesomeIcon icon={faCogs} style={{ fontSize: iconSize,display:"none" }} />
 									</div>
 								</NavIcon>
 								<NavText>
@@ -214,8 +232,8 @@ class CustomLayout extends Component {
                                 </NavText>
 							</NavItem>
 							<NavItem eventKey="shut">
-								<NavIcon>
-									<FontAwesomeIcon icon={faPowerOff} style={{ fontSize: iconSize }} />
+								<NavIcon style={{width:iconMenuSize}}>
+									<FontAwesomeIcon icon={faPowerOff} style={{ fontSize: iconSize,display:"none" }} />
 								</NavIcon>
 								<NavText>
 									Shut Down
@@ -228,22 +246,95 @@ class CustomLayout extends Component {
 				<Layout style={{ backgroundColor: "#eeeeee" }}>
 					<Header style={{
 						zIndex: "900",
-						background: 'white',
+						color:"#fff",
+						background:"#24292e",						
+						fontStyle:"bold",
 						padding: "0px 0px 0px 0px",
 						lineHeight: "20px",
-						height: "33px",
+						height: "55px",  //28px
 						WebkitAppRegion: "drag",
+						borderBottom:"0.5px solid rgba(0,0,0,1)"
 					}}
 					>
 						<div>
 							<TabBar history={this.props.history} tabs={this.state.tabs} location={this.props.location} />
 						</div>
 						<div id="title-bar" style={{ float: "right" }}>
-							<div id="title-bar-btns" style={{ position: "fixed", top: "1%", right: "0.50%" }}>
+							<div id="title-bar-btns" style={{ position: "fixed", top: "0.5%", right: "0.50%" }}>
 								<button className="win-head" id="min-btn" onClick={this.handleMin}></button>
 								<button className="win-head" id="max-btn" onClick={this.handleMax}></button>
 								<button className="win-head" id="close-btn" onClick={this.handleClose}></button>
 							</div>
+						</div>
+						<div 
+							style={{
+								WebkitAppRegion: "none", 
+								position:"relative", 
+								border:"0.5px solid rgba(0,0,0,1)",
+							}}>
+							<ul style={{
+								margin: "3px 4px 0px 5px",
+								padding: "0px",
+								display: "inline",
+								float: "left",
+								WebkitAppRegion: "none",
+
+								// overflow: "hidden"
+							}}>
+								<li style={footerStyle}></li>
+								<li style={footerStyle}></li>
+								<li style={footerStyle}></li>
+								<li style={footerStyle}></li>
+								<li style={footerStyle}></li>
+							</ul>
+							<TemporaryDrawer
+								addClientDrawer={this.state.addClientDrawer}
+								addClientDrawerClose={() => { this.setState({ addClientDrawer: false }) }}
+							/>
+							<button
+								type="submit"
+								className="add-drawer-btn"
+								onClick={() => { this.setState({ addClientDrawer: true }) }}
+								style={{ float: "right", borderRadious: "0px",WebkitAppRegion: "none" }}
+							>
+								<FontAwesomeIcon  
+									icon={faUserPlus} 
+									style={{ fontSize: "1.2em" }}
+									onClick={() => { this.setState({ addClientDrawer: true }) }}
+								/>
+	                		</button>
+							<ClientDrawer
+								removeUser={this.removeUser}
+								clientId = {this.state.client.id}
+								activeUser = {this.state.activeUser}
+								handleClient={(vals) => this.handleClient(vals)}
+								style={{ float: "right", borderRadious: "0px", WebkitAppRegion: "none" }}
+								drawerPos={this.state.clientDrawerPos}
+								client={this.state.client}
+							/>
+
+
+							<button
+								type="submit"
+								className="add-search-btn"
+								onClick={() => { this.setState({ omniSearchOpen: true }) }}
+								style={{ float: "right", borderRadious: "0px",WebkitAppRegion: "none", }}
+							>
+								<FontAwesomeIcon  
+									icon={faSearch} 
+									style={{ fontSize: "1.2em" }}
+									onClick={() => { this.setState({ omniSearchOpen: true }) }}
+								/>
+	                		</button>
+							<OmniSearch
+								clientId = {this.state.client.id}
+								activeUser = {this.state.activeUser}
+								openOmniSearch={this.state.omniSearchOpen}
+								updateData={(vals) => this.handleClient(vals)}
+								closeOmniSearch={() => { this.setState({ omniSearchOpen: false, omniBeforeClose:false }) }}
+								omniBefCloseFunc={()=>{this.setState({omniBeforeClose:true})}}
+								omniBeforeClose={this.state.omniBeforeClose}
+							/>
 						</div>
 					</Header>
 
@@ -256,7 +347,7 @@ class CustomLayout extends Component {
 						<div>
 						    <Scrollbars 
 						    	autoHide 
-						    	style={{ height: "calc(100vh - 90px)", width: "calc(100% - 0px)" }}
+						    	style={{ height: "calc(100vh - 80px)", width: "calc(100% - 0px)" }}
 						    	renderTrackHorizontal={props => <div/>}
 						    	renderThumbHorizontal={props => <div/>}
 						    >
@@ -268,75 +359,75 @@ class CustomLayout extends Component {
 
 
 
-					<Footer style={{
-						textAlign: 'center',
-						padding: "0px",
-						backgroundColor: "grey",
-						color: "#fff",
-					}}>
-						<ul style={{
-							margin: "3px 4px 0px 5px",
-							padding: "0px",
-							display: "inline",
-							float: "left",
-							// overflow: "hidden"
-						}}>
-							<li style={footerStyle}>Footbar1</li>
-							<li style={footerStyle}>Footbar2</li>
-							<li style={footerStyle}>Footbar3</li>
-							<li style={footerStyle}>Footbar4</li>
-							<li style={footerStyle}>Footbar5</li>
-						</ul>
-						<TemporaryDrawer
-							addClientDrawer={this.state.addClientDrawer}
-							addClientDrawerClose={() => { this.setState({ addClientDrawer: false }) }}
-						/>
-						<button
-							type="submit"
-							className="add-drawer-btn"
-							onClick={() => { this.setState({ addClientDrawer: true }) }}
-							style={{ float: "right", borderRadious: "0px" }}
-						>
-							<FontAwesomeIcon  
-								icon={faUserPlus} 
-								style={{ fontSize: "1.2em" }}
-								onClick={() => { this.setState({ addClientDrawer: true }) }}
-							/>
-                		</button>
-						<ClientDrawer
-							removeUser={this.removeUser}
-							clientId = {this.state.client.id}
-							activeUser = {this.state.activeUser}
-							handleClient={(vals) => this.handleClient(vals)}
-							style={{ float: "right", borderRadious: "0px" }}
-							drawerPos={this.state.clientDrawerPos}
-							client={this.state.client}
-						/>
-
-
-						<button
-							type="submit"
-							className="add-search-btn"
-							onClick={() => { this.setState({ omniSearchOpen: true }) }}
-							style={{ float: "right", borderRadious: "0px" }}
-						>
-							<FontAwesomeIcon  
-								icon={faSearch} 
-								style={{ fontSize: "1.2em" }}
-								onClick={() => { this.setState({ omniSearchOpen: true }) }}
-							/>
-                		</button>
-						<OmniSearch
-							clientId = {this.state.client.id}
-							activeUser = {this.state.activeUser}
-							openOmniSearch={this.state.omniSearchOpen}
-							updateData={(vals) => this.handleClient(vals)}
-							closeOmniSearch={() => { this.setState({ omniSearchOpen: false, omniBeforeClose:false }) }}
-							omniBefCloseFunc={()=>{this.setState({omniBeforeClose:true})}}
-							omniBeforeClose={this.state.omniBeforeClose}
-						/>
-						
-					</Footer>
+					{/* <Footer style={{
+										textAlign: 'center',
+										padding: "0px",
+										backgroundColor: "grey",
+										color: "#fff",
+									}}>
+										<ul style={{
+											margin: "3px 4px 0px 5px",
+											padding: "0px",
+											display: "inline",
+											float: "left",
+											// overflow: "hidden"
+										}}>
+											<li style={footerStyle}>Footbar1</li>
+											<li style={footerStyle}>Footbar2</li>
+											<li style={footerStyle}>Footbar3</li>
+											<li style={footerStyle}>Footbar4</li>
+											<li style={footerStyle}>Footbar5</li>
+										</ul>
+										<TemporaryDrawer
+											addClientDrawer={this.state.addClientDrawer}
+											addClientDrawerClose={() => { this.setState({ addClientDrawer: false }) }}
+										/>
+										<button
+											type="submit"
+											className="add-drawer-btn"
+											onClick={() => { this.setState({ addClientDrawer: true }) }}
+											style={{ float: "right", borderRadious: "0px" }}
+										>
+											<FontAwesomeIcon  
+												icon={faUserPlus} 
+												style={{ fontSize: "1.2em" }}
+												onClick={() => { this.setState({ addClientDrawer: true }) }}
+											/>
+				                		</button>
+										<ClientDrawer
+											removeUser={this.removeUser}
+											clientId = {this.state.client.id}
+											activeUser = {this.state.activeUser}
+											handleClient={(vals) => this.handleClient(vals)}
+											style={{ float: "right", borderRadious: "0px" }}
+											drawerPos={this.state.clientDrawerPos}
+											client={this.state.client}
+										/>
+				
+				
+										<button
+											type="submit"
+											className="add-search-btn"
+											onClick={() => { this.setState({ omniSearchOpen: true }) }}
+											style={{ float: "right", borderRadious: "0px" }}
+										>
+											<FontAwesomeIcon  
+												icon={faSearch} 
+												style={{ fontSize: "1.2em" }}
+												onClick={() => { this.setState({ omniSearchOpen: true }) }}
+											/>
+				                		</button>
+										<OmniSearch
+											clientId = {this.state.client.id}
+											activeUser = {this.state.activeUser}
+											openOmniSearch={this.state.omniSearchOpen}
+											updateData={(vals) => this.handleClient(vals)}
+											closeOmniSearch={() => { this.setState({ omniSearchOpen: false, omniBeforeClose:false }) }}
+											omniBefCloseFunc={()=>{this.setState({omniBeforeClose:true})}}
+											omniBeforeClose={this.state.omniBeforeClose}
+										/>
+										
+									</Footer> */}
 				</Layout>
 			</Layout>
 		);
